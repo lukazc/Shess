@@ -51,8 +51,8 @@ public class Main {
     private static void printBoard(Map boardState){
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                Board.Coordinates tile = new Board.Coordinates(i,j);
-                Piece piece = (Piece) boardState.get(tile);
+                Board.Coordinates coordinates = new Board.Coordinates(i,j);
+                Piece piece = (Piece) boardState.get(coordinates);
                 if (piece == null) {
                     System.out.print("-");
                 }else {
