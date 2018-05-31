@@ -1,23 +1,26 @@
 package com.lukazc.gui;
 
-import com.lukazc.engine.game.Board;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Chessboard extends JFrame {
 
     private int row = 0;
     private int col = 0;
 
-    private ImageIcon rook = new ImageIcon("./././././assets/BR.gif");
+    public static ImageIcon rook = new ImageIcon("./././././assets/BR.gif");
+    public static ImageIcon pawn = new ImageIcon("./././././assets/BP.gif");
+    public static ImageIcon king = new ImageIcon("./././././assets/BK.gif");
+    public static ImageIcon queen = new ImageIcon("./././././assets/BQ.gif");
+    public static ImageIcon bishop = new ImageIcon("./././././assets/BB.gif");
+    public static ImageIcon knight = new ImageIcon("./././././assets/BN.gif");
 
-    private Container contents;
+    private static Container contents;
 
     // Squares
-    private JButton[][] squares = new JButton[8][8];
+    public static JButton[][] squares = new JButton[8][8];
 
     // Color for squares
     private Color colorGray = Color.GRAY;
@@ -51,6 +54,7 @@ public class Chessboard extends JFrame {
                 squares[i][j].addActionListener(buttonHandler);
             }
         }
+
         squares[row][col].setIcon(rook);
 
         // Size and display
@@ -83,11 +87,4 @@ public class Chessboard extends JFrame {
             }
         }
     }
-
-    // Implement Board class to setup game
-    //  public SetupBoard(){
-    // Board.Coordinates.this.getX() = getWidth() / 8;
-    //  Board.Coordinates.this.getY() = getHeight() / 8;
-    //  }
-
 }

@@ -32,8 +32,8 @@ public class Main {
          */
 
         /*
-        * For now, we're just setting up the board and printing out the state to console.
-        */
+         * For now, we're just setting up the board and printing out the state to console.
+         */
         new Chessboard();
         Board board = new Board();
         final Map boardState = board.boardState;
@@ -48,19 +48,33 @@ public class Main {
 
     }
 
-    private static void printBoard(Map boardState){
+    private static void printBoard(Map boardState) {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                Board.Coordinates coordinates = new Board.Coordinates(i,j);
+                Board.Coordinates coordinates = new Board.Coordinates(i, j);
                 Piece piece = (Piece) boardState.get(coordinates);
                 if (piece == null) {
-                    System.out.print("-");
-                }else {
-                    String pieceLetter = piece.getPieceType().toString();
-                    System.out.print(pieceLetter);
+                    Chessboard.squares[i][j].setIcon(null);
+                } else if (piece.getPieceType().isKing())
+                {
+                    Chessboard.squares[i][j].setIcon(Chessboard.king);
+                } else if (piece.getPieceType().isQueen())
+                {
+                    Chessboard.squares[i][j].setIcon(Chessboard.queen);
+                } else if (piece.getPieceType().isRook())
+                {
+                    Chessboard.squares[i][j].setIcon(Chessboard.rook);
+                } else if (piece.getPieceType().isKnight())
+                {
+                    Chessboard.squares[i][j].setIcon(Chessboard.knight);
+                } else if (piece.getPieceType().isBishop())
+                {
+                    Chessboard.squares[i][j].setIcon(Chessboard.bishop);
+                } else if (piece.getPieceType().isPawn())
+                {
+                    Chessboard.squares[i][j].setIcon(Chessboard.pawn);
                 }
             }
-            System.out.println();
         }
     }
 }

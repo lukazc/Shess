@@ -27,7 +27,7 @@ public abstract class Piece {
         return pieceTeam;
     }
 
-    public Coordinates getPiecePositionTracker() {
+    Coordinates getPiecePositionTracker() {
         return piecePositionTracker;
     }
     public void setPiecePositionTracker(Coordinates newPosition) { this.piecePositionTracker = newPosition; }
@@ -62,6 +62,16 @@ public abstract class Piece {
             public boolean isKing() {
                 return false;
             }
+
+            @Override
+            public boolean isQueen() {
+                return false;
+            }
+
+            @Override
+            public boolean isKnight() {
+                return false;
+            }
         },
         KNIGHT("N") {
             @Override
@@ -83,6 +93,16 @@ public abstract class Piece {
             public boolean isKing() {
                 return false;
             }
+
+            @Override
+            public boolean isQueen() {
+                return false;
+            }
+
+            @Override
+            public boolean isKnight() {
+                return true;
+            }
         },
         BISHOP("B") {
             @Override
@@ -102,6 +122,16 @@ public abstract class Piece {
 
             @Override
             public boolean isKing() {
+                return false;
+            }
+
+            @Override
+            public boolean isQueen() {
+                return false;
+            }
+
+            @Override
+            public boolean isKnight() {
                 return false;
             }
         },
@@ -125,6 +155,16 @@ public abstract class Piece {
             public boolean isKing() {
                 return false;
             }
+
+            @Override
+            public boolean isQueen() {
+                return false;
+            }
+
+            @Override
+            public boolean isKnight() {
+                return false;
+            }
         },
         QUEEN("Q") {
             @Override
@@ -144,6 +184,16 @@ public abstract class Piece {
 
             @Override
             public boolean isKing() {
+                return false;
+            }
+
+            @Override
+            public boolean isQueen() {
+                return true;
+            }
+
+            @Override
+            public boolean isKnight() {
                 return false;
             }
         },
@@ -167,6 +217,16 @@ public abstract class Piece {
             public boolean isKing() {
                 return true;
             }
+
+            @Override
+            public boolean isQueen() {
+                return false;
+            }
+
+            @Override
+            public boolean isKnight() {
+                return false;
+            }
         };
 
         private final String pieceName;
@@ -184,6 +244,8 @@ public abstract class Piece {
         public abstract boolean isBishop();
         public abstract boolean isRook();
         public abstract boolean isKing();
+        public abstract boolean isQueen();
+        public abstract boolean isKnight();
 
     }
 
