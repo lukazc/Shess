@@ -80,11 +80,14 @@ public class Board {
      * @return Set of Coordinates of legal moves for White or Black pieces.
      */
     private Collection<Move> findLegalMoves(final Collection<Piece> pieces) {
-        return pieces.stream().flatMap(piece -> piece.findLegalMoves(this).stream())
+        return pieces.stream().flatMap(piece -> piece.findLegalMoves().stream())
                 .collect(Collectors.toSet());
     }
 
-    public void initializeBoard(){
+    /**
+     * Setup all Black and White pieces in their initial positions.
+     */
+    public void setupPieces(){
         setupBishops();
         setupKings();
         setupKnights();
@@ -100,8 +103,8 @@ public class Board {
         for(int i = 0; i < 8; i++){
             Coordinates blackPawnStartingPoint = new Coordinates(1, i);
             Coordinates whitePawnStartingPoint = new Coordinates(6, i);
-            Pawn blackPawn = new Pawn(Piece.PieceType.PAWN, Team.BLACK, blackPawnStartingPoint, true);
-            Pawn whitePawn = new Pawn(Piece.PieceType.PAWN, Team.WHITE, whitePawnStartingPoint, true);
+            Pawn blackPawn = new Pawn(Piece.PieceType.PAWN, Team.BLACK, blackPawnStartingPoint);
+            Pawn whitePawn = new Pawn(Piece.PieceType.PAWN, Team.WHITE, whitePawnStartingPoint);
             boardState.put(blackPawnStartingPoint, blackPawn);
             boardState.put(whitePawnStartingPoint, whitePawn);
         }
@@ -113,15 +116,15 @@ public class Board {
     private void setupRooks(){
         Coordinates blackRookOneStartingPoint = new Coordinates(0, 0);
         Coordinates blackRookTwoStartingPoint = new Coordinates(0, 7);
-        Rook blackRookOne = new Rook(Piece.PieceType.ROOK, Team.BLACK, blackRookOneStartingPoint, true);
-        Rook blackRookTwo = new Rook(Piece.PieceType.ROOK, Team.BLACK, blackRookTwoStartingPoint, true);
+        Rook blackRookOne = new Rook(Piece.PieceType.ROOK, Team.BLACK, blackRookOneStartingPoint);
+        Rook blackRookTwo = new Rook(Piece.PieceType.ROOK, Team.BLACK, blackRookTwoStartingPoint);
         boardState.put(blackRookOneStartingPoint, blackRookOne);
         boardState.put(blackRookTwoStartingPoint, blackRookTwo);
 
         Coordinates whiteRookOneStartingPoint = new Coordinates(7, 0);
         Coordinates whiteRookTwoStartingPoint = new Coordinates(7, 7);
-        Rook whiteRookOne = new Rook(Piece.PieceType.ROOK, Team.WHITE, whiteRookOneStartingPoint, true);
-        Rook whiteRookTwo = new Rook(Piece.PieceType.ROOK, Team.WHITE, whiteRookTwoStartingPoint, true);
+        Rook whiteRookOne = new Rook(Piece.PieceType.ROOK, Team.WHITE, whiteRookOneStartingPoint);
+        Rook whiteRookTwo = new Rook(Piece.PieceType.ROOK, Team.WHITE, whiteRookTwoStartingPoint);
         boardState.put(whiteRookOneStartingPoint, whiteRookOne);
         boardState.put(whiteRookTwoStartingPoint, whiteRookTwo);
     }
@@ -132,15 +135,15 @@ public class Board {
     private void setupBishops(){
         Coordinates blackBishopOneStartingPoint = new Coordinates(0, 2);
         Coordinates blackBishopTwoStartingPoint = new Coordinates(0, 5);
-        Bishop blackBishopOne = new Bishop(Piece.PieceType.BISHOP, Team.BLACK, blackBishopOneStartingPoint, true);
-        Bishop blackBishopTwo = new Bishop(Piece.PieceType.BISHOP, Team.BLACK, blackBishopTwoStartingPoint, true);
+        Bishop blackBishopOne = new Bishop(Piece.PieceType.BISHOP, Team.BLACK, blackBishopOneStartingPoint);
+        Bishop blackBishopTwo = new Bishop(Piece.PieceType.BISHOP, Team.BLACK, blackBishopTwoStartingPoint);
         boardState.put(blackBishopOneStartingPoint, blackBishopOne);
         boardState.put(blackBishopTwoStartingPoint, blackBishopTwo);
 
         Coordinates whiteBishopOneStartingPoint = new Coordinates(7, 2);
         Coordinates whiteBishopTwoStartingPoint = new Coordinates(7, 5);
-        Bishop whiteBishopOne = new Bishop(Piece.PieceType.BISHOP, Team.WHITE, whiteBishopOneStartingPoint, true);
-        Bishop whiteBishopTwo = new Bishop(Piece.PieceType.BISHOP, Team.WHITE, whiteBishopTwoStartingPoint, true);
+        Bishop whiteBishopOne = new Bishop(Piece.PieceType.BISHOP, Team.WHITE, whiteBishopOneStartingPoint);
+        Bishop whiteBishopTwo = new Bishop(Piece.PieceType.BISHOP, Team.WHITE, whiteBishopTwoStartingPoint);
         boardState.put(whiteBishopOneStartingPoint, whiteBishopOne);
         boardState.put(whiteBishopTwoStartingPoint, whiteBishopTwo);
     }
@@ -151,15 +154,15 @@ public class Board {
     private void setupKnights(){
         Coordinates blackKnightOneStartingPoint = new Coordinates(0, 1);
         Coordinates blackKnightTwoStartingPoint = new Coordinates(0, 6);
-        Knight blackKnightOne = new Knight(Piece.PieceType.KNIGHT, Team.BLACK, blackKnightOneStartingPoint ,true);
-        Knight blackKnightTwo = new Knight(Piece.PieceType.KNIGHT, Team.BLACK, blackKnightTwoStartingPoint,true);
+        Knight blackKnightOne = new Knight(Piece.PieceType.KNIGHT, Team.BLACK, blackKnightOneStartingPoint);
+        Knight blackKnightTwo = new Knight(Piece.PieceType.KNIGHT, Team.BLACK, blackKnightTwoStartingPoint);
         boardState.put(blackKnightOneStartingPoint, blackKnightOne);
         boardState.put(blackKnightTwoStartingPoint, blackKnightTwo);
 
         Coordinates whiteKnightOneStartingPoint = new Coordinates(7, 1);
         Coordinates whiteKnightTwoStartingPoint = new Coordinates(7, 6);
-        Knight whiteKnightOne = new Knight(Piece.PieceType.KNIGHT, Team.WHITE, whiteKnightOneStartingPoint,true);
-        Knight whiteKnightTwo = new Knight(Piece.PieceType.KNIGHT, Team.WHITE, whiteKnightTwoStartingPoint,true);
+        Knight whiteKnightOne = new Knight(Piece.PieceType.KNIGHT, Team.WHITE, whiteKnightOneStartingPoint);
+        Knight whiteKnightTwo = new Knight(Piece.PieceType.KNIGHT, Team.WHITE, whiteKnightTwoStartingPoint);
         boardState.put(whiteKnightOneStartingPoint, whiteKnightOne);
         boardState.put(whiteKnightTwoStartingPoint, whiteKnightTwo);
     }
@@ -169,11 +172,11 @@ public class Board {
      */
     private void setupQueens(){
         Coordinates blackQueenStartingPoint = new Coordinates(0, 3);
-        Queen blackQueen = new Queen(Piece.PieceType.QUEEN, Team.BLACK, blackQueenStartingPoint, true);
+        Queen blackQueen = new Queen(Piece.PieceType.QUEEN, Team.BLACK, blackQueenStartingPoint);
         boardState.put(blackQueenStartingPoint, blackQueen);
 
         Coordinates whiteQueenStartingPoint = new Coordinates(7, 3);
-        Queen whiteQueen = new Queen(Piece.PieceType.QUEEN, Team.WHITE, whiteQueenStartingPoint, true);
+        Queen whiteQueen = new Queen(Piece.PieceType.QUEEN, Team.WHITE, whiteQueenStartingPoint);
         boardState.put(whiteQueenStartingPoint, whiteQueen);
     }
 
@@ -182,11 +185,11 @@ public class Board {
      */
     private void setupKings(){
         Coordinates blackKingStartingPoint = new Coordinates(0,4);
-        King blackKing = new King(Piece.PieceType.KING, Team.BLACK, blackKingStartingPoint, true);
+        King blackKing = new King(Piece.PieceType.KING, Team.BLACK, blackKingStartingPoint);
         boardState.put(blackKingStartingPoint, blackKing);
 
         Coordinates whiteKingStartingPoint = new Coordinates(7,4);
-        King whiteKing = new King(Piece.PieceType.KING, Team.WHITE, whiteKingStartingPoint, true);
+        King whiteKing = new King(Piece.PieceType.KING, Team.WHITE, whiteKingStartingPoint);
         boardState.put(whiteKingStartingPoint, whiteKing);
     }
 

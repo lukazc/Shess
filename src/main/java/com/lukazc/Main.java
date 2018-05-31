@@ -11,6 +11,29 @@ public class Main {
 
     public static void main(String[] args) {
 
+        /*
+         * PPP
+         * Initialize and set up the board.
+         *
+         * LOOP:
+         *
+         * Check end-game conditions.
+         * Calculate all legal moves for Black, including potential future access to the White King.
+         * Take away legal moves from White based on Black's legal moves and potential future access to the king.
+         * Let White player move, within the calculated legal moves.
+         * White's move updates the board.
+         *
+         * Check end-game conditions.
+         * Calculate all legal moves for White, including potential future access to the Black King.
+         * Take away legal moves from Black based on Whites's legal moves and potential future access to the king.
+         * Let Black player move, within the calculated legal moves.
+         * Black's move updates the board.
+         */
+
+        /*
+        * For now, we're just setting up the board and printing out the state to console.
+        */
+
         Board board = new Board();
         final Map boardState = board.boardState;
 
@@ -18,8 +41,9 @@ public class Main {
         Player blackPlayer = new Player();
         board.currentPlayer = whitePlayer;
 
-        board.initializeBoard();
+        board.setupPieces();
         printBoard(boardState);
+
 
     }
 

@@ -8,12 +8,12 @@ import java.util.Collection;
 
 public class Pawn extends Piece {
 
-    public Pawn(PieceType pieceType, Team pieceTeam, Board.Coordinates piecePosition, boolean isFirstMove) {
-        super(pieceType, pieceTeam, piecePosition, isFirstMove);
+    public Pawn(PieceType pieceType, Team pieceTeam, Board.Coordinates piecePosition) {
+        super(pieceType, pieceTeam, piecePosition);
     }
 
     @Override
-    public Collection<Move> findLegalMoves(Board board) {
+    public Collection<Move> findLegalMoves() {
         return null;
     }
 }

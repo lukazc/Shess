@@ -1,6 +1,5 @@
 package com.lukazc.engine.pieces;
 
-import com.lukazc.engine.game.Board;
 import com.lukazc.engine.game.Board.Coordinates;
 import com.lukazc.engine.game.Move;
 import com.lukazc.engine.player.Team;
@@ -10,14 +9,14 @@ import java.util.Collection;
 public abstract class Piece {
     private final PieceType pieceType;
     private final Team pieceTeam;
-    private final Coordinates piecePosition;
-    private final boolean isFirstMove;
+    private Coordinates piecePositionTracker;
+    private boolean isFirstMove;
 
-    Piece(PieceType pieceType, Team pieceTeam, Coordinates piecePosition, boolean isFirstMove) {
+    Piece(PieceType pieceType, Team pieceTeam, Coordinates piecePositionTracker) {
         this.pieceType = pieceType;
         this.pieceTeam = pieceTeam;
-        this.piecePosition = piecePosition;
-        this.isFirstMove = isFirstMove;
+        this.piecePositionTracker = piecePositionTracker;
+        this.isFirstMove = true;
     }
 
     public PieceType getPieceType() {
@@ -28,16 +27,18 @@ public abstract class Piece {
         return pieceTeam;
     }
 
-    public Coordinates getPiecePosition() {
-        return piecePosition;
+    public Coordinates getPiecePositionTracker() {
+        return piecePositionTracker;
     }
+    public void setPiecePositionTracker(Coordinates newPosition) { this.piecePositionTracker = newPosition; }
 
     public boolean isFirstMove() {
         return isFirstMove;
     }
+    public void registerMove() { if (this.isFirstMove) this.isFirstMove = false; }
 
     //    Returns a list of coordinates of all tiles this piece can reach.
-    public abstract Collection<Move> findLegalMoves(final Board board);
+    public abstract Collection<Move> findLegalMoves();
 
     public enum PieceType {
 
