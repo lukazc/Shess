@@ -3,6 +3,7 @@ package com.lukazc;
 import com.lukazc.engine.game.*;
 import com.lukazc.engine.pieces.*;
 import com.lukazc.engine.player.*;
+import com.lukazc.gui.Chessboard;
 
 import java.util.Map;
 
@@ -33,7 +34,7 @@ public class Main {
         /*
         * For now, we're just setting up the board and printing out the state to console.
         */
-
+        new Chessboard();
         Board board = new Board();
         final Map boardState = board.boardState;
 
