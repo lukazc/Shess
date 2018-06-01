@@ -19,13 +19,11 @@ public abstract class Piece {
         this.isFirstMove = true;
     }
 
-    public PieceType getPieceType() {
-        return pieceType;
-    }
+    // PieceType made final to implement in printBoard()
 
-    public Team getPieceTeam() {
-        return pieceTeam;
-    }
+    public final PieceType getPieceType() { return pieceType; }
+
+    public Team getPieceTeam() { return pieceTeam; }
 
     Coordinates getPiecePositionTracker() {
         return piecePositionTracker;

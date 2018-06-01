@@ -53,26 +53,53 @@ public class Main {
             for (int j = 0; j < 8; j++) {
                 Board.Coordinates coordinates = new Board.Coordinates(i, j);
                 Piece piece = (Piece) boardState.get(coordinates);
+
+                // Draw empty tiles on board
+
                 if (piece == null) {
                     Chessboard.squares[i][j].setIcon(null);
-                } else if (piece.getPieceType().isKing())
+
+                // Draw black pieces on board
+
+                } else if (piece.getPieceType().isKing() && piece.getPieceTeam().equals(Team.BLACK))
                 {
-                    Chessboard.squares[i][j].setIcon(Chessboard.king);
-                } else if (piece.getPieceType().isQueen())
+                    Chessboard.squares[i][j].setIcon(Chessboard.blackKing);
+                } else if (piece.getPieceType().isQueen() && piece.getPieceTeam().equals(Team.BLACK))
                 {
-                    Chessboard.squares[i][j].setIcon(Chessboard.queen);
-                } else if (piece.getPieceType().isRook())
+                    Chessboard.squares[i][j].setIcon(Chessboard.blackQueen);
+                } else if (piece.getPieceType().isRook() && piece.getPieceTeam().equals(Team.BLACK))
                 {
-                    Chessboard.squares[i][j].setIcon(Chessboard.rook);
-                } else if (piece.getPieceType().isKnight())
+                    Chessboard.squares[i][j].setIcon(Chessboard.blackRook);
+                } else if (piece.getPieceType().isKnight() && piece.getPieceTeam().equals(Team.BLACK))
                 {
-                    Chessboard.squares[i][j].setIcon(Chessboard.knight);
-                } else if (piece.getPieceType().isBishop())
+                    Chessboard.squares[i][j].setIcon(Chessboard.blackKnight);
+                } else if (piece.getPieceType().isBishop() && piece.getPieceTeam().equals(Team.BLACK))
                 {
-                    Chessboard.squares[i][j].setIcon(Chessboard.bishop);
-                } else if (piece.getPieceType().isPawn())
+                    Chessboard.squares[i][j].setIcon(Chessboard.blackBishop);
+                } else if (piece.getPieceType().isPawn() && piece.getPieceTeam().equals(Team.BLACK))
                 {
-                    Chessboard.squares[i][j].setIcon(Chessboard.pawn);
+                    Chessboard.squares[i][j].setIcon(Chessboard.blackPawn);
+
+                // Draw white pieces on board
+
+                }else if (piece.getPieceType().isKing() && piece.getPieceTeam().equals(Team.WHITE))
+                {
+                    Chessboard.squares[i][j].setIcon(Chessboard.whiteKing);
+                } else if (piece.getPieceType().isQueen() && piece.getPieceTeam().equals(Team.WHITE))
+                {
+                    Chessboard.squares[i][j].setIcon(Chessboard.whiteQueen);
+                } else if (piece.getPieceType().isRook() && piece.getPieceTeam().equals(Team.WHITE))
+                {
+                    Chessboard.squares[i][j].setIcon(Chessboard.whiteRook);
+                } else if (piece.getPieceType().isKnight() && piece.getPieceTeam().equals(Team.WHITE))
+                {
+                    Chessboard.squares[i][j].setIcon(Chessboard.whiteKnight);
+                } else if (piece.getPieceType().isBishop() && piece.getPieceTeam().equals(Team.WHITE))
+                {
+                    Chessboard.squares[i][j].setIcon(Chessboard.whiteBishop);
+                } else if (piece.getPieceType().isPawn() && piece.getPieceTeam().equals(Team.WHITE))
+                {
+                    Chessboard.squares[i][j].setIcon(Chessboard.whitePawn);
                 }
             }
         }
