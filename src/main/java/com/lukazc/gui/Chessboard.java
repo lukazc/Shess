@@ -85,9 +85,10 @@ public class Chessboard extends JFrame {
         // Size and display
 
         setSize(500, 500);
+        setAlwaysOnTop( true );
         setResizable(false);
         setLocationRelativeTo(null); // Center window
-        setVisible(true);
+        setVisible(false);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // Window deleted from memory
 
     }
