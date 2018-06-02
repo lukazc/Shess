@@ -4,16 +4,24 @@ public class GameState {
 
     // State of the game to switch between menu and game
 
-    public enum STATE{
+    public enum STATE {
         MENU,
-        GAME
+        GAME,
     }
 
     // Initial STATE of the game
 
-    public static STATE State = STATE.GAME;
+    public static STATE State = STATE.MENU;
 
-    public void changeState(){
-        State = STATE.GAME;
+    // Getter for State
+
+    public STATE getState(){
+        return State;
+    }
+
+    // Setter for State
+
+    public static void setState(STATE state){
+        State = state;
     }
 }

@@ -4,7 +4,6 @@ import com.lukazc.engine.game.Board;
 import com.lukazc.engine.game.GameState;
 import com.lukazc.engine.pieces.Piece;
 import com.lukazc.engine.player.Player;
-import com.lukazc.engine.player.Team;
 import com.lukazc.gui.Chessboard;
 import com.lukazc.gui.MainMenu;
 
@@ -38,7 +37,10 @@ public class Main {
         /*
          * For now, we're just setting up the board and printing out the state to console.
          */
-        if (GameState.State == GameState.STATE.GAME) {
+
+        if (GameState.State == GameState.STATE.MENU) {
+            new MainMenu();
+        } else if(GameState.State == GameState.STATE.GAME) {
             chessboard = new Chessboard();
             Board board = new Board();
             final Map boardState = board.boardState;
@@ -49,8 +51,6 @@ public class Main {
 
             board.setupPieces();
             printBoard(boardState);
-        } else if (GameState.State == GameState.STATE.MENU){
-            new MainMenu();
         }
     }
 
