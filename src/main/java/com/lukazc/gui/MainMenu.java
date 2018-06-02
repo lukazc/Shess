@@ -1,11 +1,12 @@
 package com.lukazc.gui;
 
-import com.lukazc.engine.game.GameState;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import static com.lukazc.Main.chessboard;
+import static com.lukazc.Main.main;
 
 public class MainMenu extends JFrame {
 
@@ -49,8 +50,10 @@ public class MainMenu extends JFrame {
 
             public void actionPerformed(ActionEvent e){
 
-                GameState.setState(GameState.STATE.GAME);
-                System.out.println(GameState.STATE.GAME);
+                // When play button is pressed hide main menu window and show game window
+
+                main.setVisible(false);
+                chessboard.setVisible(true);
             }
         });
 

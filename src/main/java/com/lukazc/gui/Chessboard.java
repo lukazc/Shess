@@ -3,7 +3,6 @@ package com.lukazc.gui;
 import com.lukazc.engine.game.Board;
 import com.lukazc.engine.game.Move;
 import com.lukazc.engine.pieces.Piece;
-import com.lukazc.engine.player.Player;
 import com.lukazc.engine.player.Team;
 
 import javax.swing.*;
@@ -88,7 +87,7 @@ public class Chessboard extends JFrame {
         setSize(500, 500);
         setResizable(false);
         setLocationRelativeTo(null); // Center window
-        setVisible(true);
+        setVisible(false);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // Window deleted from memory
 
     }
