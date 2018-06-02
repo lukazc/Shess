@@ -69,9 +69,10 @@ public class Chessboard extends JFrame {
         col = y;
     }
 
+
     private class ButtonHandler implements ActionListener{
-        public void actionPerformed(ActionEvent event){
-            Object source = event.getSource();
+        public void actionPerformed(ActionEvent click){
+            Object source = click.getSource();
 
             for (int i = 0; i <8 ; i++) {
                 for (int j = 0; j < 8; j++) {
