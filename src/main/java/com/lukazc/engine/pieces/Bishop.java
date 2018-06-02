@@ -1,7 +1,6 @@
 package com.lukazc.engine.pieces;
 
 import com.lukazc.engine.game.Board;
-import com.lukazc.engine.game.Move;
 import com.lukazc.engine.player.Team;
 
 import java.util.Collection;
@@ -12,7 +11,7 @@ public class Bishop extends Piece {
     }
 
     @Override
-    public Collection<Move> findLegalMoves() {
+    public Collection<Board.Coordinates> findLegalMoves() {
         return null;
     }
 }

@@ -2,6 +2,7 @@ package com.lukazc;
 
 import com.lukazc.engine.game.Board;
 import com.lukazc.engine.game.GameState;
+import com.lukazc.engine.game.Move;
 import com.lukazc.engine.pieces.Piece;
 import com.lukazc.engine.player.Player;
 import com.lukazc.gui.Chessboard;
@@ -11,6 +12,7 @@ import java.util.Map;
 
 public class Main {
 
+    private static Board board;
     private static Chessboard chessboard;
 
     public static void main(String[] args) {
@@ -41,9 +43,13 @@ public class Main {
         if (GameState.State == GameState.STATE.MENU) {
             new MainMenu();
         } else if(GameState.State == GameState.STATE.GAME) {
+            board = new Board();
             chessboard = new Chessboard();
-            Board board = new Board();
-            final Map boardState = board.boardState;
+
+            Move move = new Move(board);
+            chessboard.newMove(move);
+
+            Map boardState = board.getBoardState();
 
             Player whitePlayer = new Player();
             Player blackPlayer = new Player();
@@ -54,7 +60,7 @@ public class Main {
         }
     }
 
-    private static void printBoard(Map boardState) {
+    public static void printBoard(Map boardState) {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 Board.Coordinates coordinates = new Board.Coordinates(i, j);

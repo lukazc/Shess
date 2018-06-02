@@ -1,7 +1,9 @@
 package com.lukazc.gui;
 
 import com.lukazc.engine.game.Board;
+import com.lukazc.engine.game.Move;
 import com.lukazc.engine.pieces.Piece;
+import com.lukazc.engine.player.Player;
 import com.lukazc.engine.player.Team;
 
 import javax.swing.*;
@@ -42,12 +44,12 @@ public class Chessboard extends JFrame {
     // Color for squares
 
     private Color colorGray = Color.GRAY;
+    private Move move;
 
     /**
      * Constructor
      */
     public Chessboard() {
-
         // Initialize Layout
 
         contents = getContentPane();
@@ -88,10 +90,16 @@ public class Chessboard extends JFrame {
         setLocationRelativeTo(null); // Center window
         setVisible(true);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // Window deleted from memory
+
+    }
+
+    public void newMove(Move move) {
+        this.move = move;
     }
 
     private void processClick(int x, int y){
 
+        move.select(new Board.Coordinates(x,y));
         //squares[row][col].setIcon(null);
         //squares[x][y].setIcon(rook);
         //row = x;

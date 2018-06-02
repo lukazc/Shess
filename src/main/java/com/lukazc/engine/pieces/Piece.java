@@ -12,6 +12,8 @@ public abstract class Piece {
     private Coordinates piecePositionTracker;
     private boolean isFirstMove;
 
+    private Collection<Coordinates> legalMoves;
+
     Piece(PieceType pieceType, Team pieceTeam, Coordinates piecePositionTracker) {
         this.pieceType = pieceType;
         this.pieceTeam = pieceTeam;
@@ -36,7 +38,7 @@ public abstract class Piece {
     public void registerMove() { if (this.isFirstMove) this.isFirstMove = false; }
 
     //    Returns a list of coordinates of all tiles this piece can reach.
-    public abstract Collection<Move> findLegalMoves();
+    public abstract Collection<Coordinates> findLegalMoves();
 
     public enum PieceType {
 

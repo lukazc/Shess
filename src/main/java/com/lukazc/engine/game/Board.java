@@ -1,5 +1,6 @@
 package com.lukazc.engine.game;
 
+import com.lukazc.Main;
 import com.lukazc.engine.pieces.*;
 import com.lukazc.engine.player.Player;
 import com.lukazc.engine.player.Team;
@@ -8,6 +9,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 
@@ -65,7 +67,7 @@ public class Board {
      * @key Coordinates object, containing X and Y.
      * @value Piece object, or null.
      */
-    public final Map<Coordinates, Piece> boardState = new HashMap<>();
+    private final Map<Coordinates, Piece> boardState = new HashMap<>();
     // Currently moving player. Black or White.
     public Player currentPlayer;
     // Sets of players' active pieces.
@@ -79,9 +81,29 @@ public class Board {
      * @param pieces All Black or White pieces.
      * @return Set of Coordinates of legal moves for White or Black pieces.
      */
-    private Collection<Move> findLegalMoves(final Collection<Piece> pieces) {
+    private Set<Coordinates> findLegalMoves(final Collection<Piece> pieces) {
         return pieces.stream().flatMap(piece -> piece.findLegalMoves().stream())
                 .collect(Collectors.toSet());
+    }
+
+    /**
+     * Empty the origin, and set the Piece to new destination coordinates.
+     */
+    void updateBoardState(Move move) {
+        Coordinates origin = move.getOrigin();
+        Coordinates destination = move.getDestination();
+        Piece piece = move.getPiece();
+
+        // Remove the Piece from its starting point.
+        boardState.put(origin, null);
+        // Register the Piece to new coordinates.
+        boardState.put(destination, piece);
+
+        Main.printBoard(boardState);
+    }
+
+    public Map<Coordinates, Piece> getBoardState() {
+        return boardState;
     }
 
     /**

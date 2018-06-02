@@ -11,7 +11,7 @@ public class GameState {
 
     // Initial STATE of the game
 
-    public static STATE State = STATE.MENU;
+    public static STATE State = STATE.GAME;
 
     // Getter for State
 
