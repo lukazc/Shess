@@ -13,7 +13,7 @@ public class Main {
 
     private static Board board;
     public static Chessboard chessboard;
-    public static MainMenu main;
+    public static MainMenu mainMenu;
 
     public static void main(String[] args) {
 
@@ -42,7 +42,7 @@ public class Main {
 
         // Load main menu
 
-        main = new MainMenu();
+        mainMenu = new MainMenu();
 
         // Load chessboard
 
@@ -52,7 +52,7 @@ public class Main {
 
         board = new Board();
 
-        // Load moves
+        // Initialize Move class
 
         Move move = new Move(board);
         chessboard.newMove(move);

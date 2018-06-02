@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import static com.lukazc.Main.chessboard;
-import static com.lukazc.Main.main;
+import static com.lukazc.Main.mainMenu;
 
 public class MainMenu extends JFrame {
 
@@ -52,7 +52,7 @@ public class MainMenu extends JFrame {
 
                 // When play button is pressed hide main menu window and show game window
 
-                main.setVisible(false);
+                mainMenu.setVisible(false);
                 chessboard.setVisible(true);
             }
         });

@@ -85,6 +85,7 @@ public class Chessboard extends JFrame {
         // Size and display
 
         setSize(500, 500);
+        setAlwaysOnTop( true );
         setResizable(false);
         setLocationRelativeTo(null); // Center window
         setVisible(false);
