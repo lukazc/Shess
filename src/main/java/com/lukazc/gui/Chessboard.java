@@ -3,7 +3,6 @@ package com.lukazc.gui;
 import com.lukazc.engine.game.Board;
 import com.lukazc.engine.game.Move;
 import com.lukazc.engine.pieces.Piece;
-import com.lukazc.engine.player.Player;
 import com.lukazc.engine.player.Team;
 
 import javax.swing.*;

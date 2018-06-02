@@ -87,7 +87,7 @@ public class Board {
     }
 
     /**
-     * Empty the origin, and set the Piece to new destination coordinates.
+     * Remove Piece from origin, and set the Piece to new destination coordinates.
      */
     void updateBoardState(Move move) {
         Coordinates origin = move.getOrigin();

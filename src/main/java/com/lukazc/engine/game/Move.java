@@ -19,15 +19,19 @@ public class Move {
     }
 
     public void select(Board.Coordinates coordinates) {
-
+        // Select a Piece.
         if (piece == null) {
-            setPiece(coordinates);
+            // If it matches player's color.
+            selectPiece(coordinates);
         }
 
+        // Once a piece has been selected:
         if (piece != null) {
             if (origin == null) {
+            // Set its coordinates as "origin".
                 setOrigin(coordinates);
             } else {
+            // Second click selects the "destination".
                 setDestination(coordinates);
                 board.updateBoardState(this);
                 startNextTurn();
@@ -35,6 +39,7 @@ public class Move {
         }
     }
 
+    // Reset all Move information, and switch player.
     private void startNextTurn() {
         piece = null;
         origin = null;
@@ -43,7 +48,8 @@ public class Move {
         whiteMoves = !whiteMoves;
     }
 
-    private void setPiece(Board.Coordinates coordinates) {
+    // If the selected Piece is one of the player's pieces, prepare it to move.
+    private void selectPiece(Board.Coordinates coordinates) {
         Piece selection = board.getBoardState().get(coordinates);
         if (selection == null) return;
         if (whiteMoves && selection.getPieceTeam() == Team.WHITE) piece = selection;
@@ -53,6 +59,7 @@ public class Move {
         if (piece != null) origin = coordinates;
     }
     private void setDestination(Board.Coordinates destination) {
+        // TODO: check if destination lies inside legalMoves.
         this.destination = destination;
     }
 

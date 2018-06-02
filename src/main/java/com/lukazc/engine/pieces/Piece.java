@@ -1,7 +1,6 @@
 package com.lukazc.engine.pieces;
 
 import com.lukazc.engine.game.Board.Coordinates;
-import com.lukazc.engine.game.Move;
 import com.lukazc.engine.player.Team;
 
 import java.util.Collection;
