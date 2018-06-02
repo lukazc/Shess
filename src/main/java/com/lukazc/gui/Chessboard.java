@@ -1,5 +1,9 @@
 package com.lukazc.gui;
 
+import com.lukazc.engine.game.Board;
+import com.lukazc.engine.pieces.Piece;
+import com.lukazc.engine.player.Team;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -11,24 +15,21 @@ public class Chessboard extends JFrame {
 
         // Load black pieces
 
-        public static ImageIcon blackRook = new ImageIcon("./././././assets/BR.gif");
-        public static ImageIcon blackPawn = new ImageIcon("./././././assets/BP.gif");
-        public static ImageIcon blackKing = new ImageIcon("./././././assets/BK.gif");
-        public static ImageIcon blackQueen = new ImageIcon("./././././assets/BQ.gif");
-        public static ImageIcon blackBishop = new ImageIcon("./././././assets/BB.gif");
-        public static ImageIcon blackKnight = new ImageIcon("./././././assets/BN.gif");
+        private static ImageIcon blackRook = new ImageIcon("./././././assets/BR.gif");
+        private static ImageIcon blackPawn = new ImageIcon("./././././assets/BP.gif");
+        private static ImageIcon blackKing = new ImageIcon("./././././assets/BK.gif");
+        private static ImageIcon blackQueen = new ImageIcon("./././././assets/BQ.gif");
+        private static ImageIcon blackBishop = new ImageIcon("./././././assets/BB.gif");
+        private static ImageIcon blackKnight = new ImageIcon("./././././assets/BN.gif");
 
         // Load white pieces
 
-        public static ImageIcon whiteRook = new ImageIcon("./././././assets/WR.gif");
-        public static ImageIcon whitePawn = new ImageIcon("./././././assets/WP.gif");
-        public static ImageIcon whiteKing = new ImageIcon("./././././assets/WK.gif");
-        public static ImageIcon whiteQueen = new ImageIcon("./././././assets/WQ.gif");
-        public static ImageIcon whiteBishop = new ImageIcon("./././././assets/WB.gif");
-        public static ImageIcon whiteKnight = new ImageIcon("./././././assets/WN.gif");
-
-    //private int row = 0;
-    //private int col = 0;
+        private static ImageIcon whiteRook = new ImageIcon("./././././assets/WR.gif");
+        private static ImageIcon whitePawn = new ImageIcon("./././././assets/WP.gif");
+        private static ImageIcon whiteKing = new ImageIcon("./././././assets/WK.gif");
+        private static ImageIcon whiteQueen = new ImageIcon("./././././assets/WQ.gif");
+        private static ImageIcon whiteBishop = new ImageIcon("./././././assets/WB.gif");
+        private static ImageIcon whiteKnight = new ImageIcon("./././././assets/WN.gif");
 
     // Make Container
 
@@ -36,7 +37,7 @@ public class Chessboard extends JFrame {
 
     // Squares
 
-    public static JButton[][] squares = new JButton[8][8];
+    private static JButton[][] squares = new JButton[8][8];
 
     // Color for squares
 
@@ -109,6 +110,59 @@ public class Chessboard extends JFrame {
                         return;
                     }
                 }
+            }
+        }
+    }
+
+    public void drawPiece(Board.Coordinates coordinates, Piece piece){
+        final int i = coordinates.getX();
+        final int j = coordinates.getY();
+
+        // For given tile on the board:
+        if (piece == null) {
+            // If there's no piece, remove icon.
+            Chessboard.squares[i][j].setIcon(null);
+        } else if (piece.getPieceTeam().equals(Team.BLACK)) {
+            // If the piece is Black, draw black icon of its type.
+            switch (piece.getPieceType()) {
+                case BISHOP:
+                    Chessboard.squares[i][j].setIcon(Chessboard.blackBishop);
+                    break;
+                case KNIGHT:
+                    Chessboard.squares[i][j].setIcon(Chessboard.blackKnight);
+                    break;
+                case PAWN:
+                    Chessboard.squares[i][j].setIcon(Chessboard.blackPawn);
+                    break;
+                case ROOK:
+                    Chessboard.squares[i][j].setIcon(Chessboard.blackRook);
+                    break;
+                case KING:
+                    Chessboard.squares[i][j].setIcon(Chessboard.blackKing);
+                    break;
+                case QUEEN:
+                    Chessboard.squares[i][j].setIcon(Chessboard.blackQueen);
+            }
+        } else if (piece.getPieceTeam().equals(Team.WHITE)) {
+            // If the piece is White, draw white icon of its type.
+            switch (piece.getPieceType()) {
+                case BISHOP:
+                    Chessboard.squares[i][j].setIcon(Chessboard.whiteBishop);
+                    break;
+                case KNIGHT:
+                    Chessboard.squares[i][j].setIcon(Chessboard.whiteKnight);
+                    break;
+                case PAWN:
+                    Chessboard.squares[i][j].setIcon(Chessboard.whitePawn);
+                    break;
+                case ROOK:
+                    Chessboard.squares[i][j].setIcon(Chessboard.whiteRook);
+                    break;
+                case KING:
+                    Chessboard.squares[i][j].setIcon(Chessboard.whiteKing);
+                    break;
+                case QUEEN:
+                    Chessboard.squares[i][j].setIcon(Chessboard.whiteQueen);
             }
         }
     }

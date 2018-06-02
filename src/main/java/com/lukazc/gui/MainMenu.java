@@ -45,15 +45,7 @@ public class MainMenu extends JFrame {
 
         // Add ActionListener to change game state on click
 
-        playButton.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                GameState.State = GameState.STATE.GAME;
-
-            }
-
-        });
+        playButton.addActionListener(e -> GameState.State = GameState.STATE.GAME);
 
         // Insert background and button
 
