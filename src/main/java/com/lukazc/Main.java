@@ -1,14 +1,16 @@
 package com.lukazc;
 
-import com.lukazc.engine.game.*;
-import com.lukazc.engine.pieces.*;
-import com.lukazc.engine.player.*;
+import com.lukazc.engine.game.Board;
+import com.lukazc.engine.game.GameState;
+import com.lukazc.engine.pieces.Piece;
+import com.lukazc.engine.player.Player;
+import com.lukazc.engine.player.Team;
 import com.lukazc.gui.Chessboard;
+import com.lukazc.gui.MainMenu;
 
 import java.util.Map;
 
 public class Main {
-
 
     public static void main(String[] args) {
 
@@ -34,18 +36,20 @@ public class Main {
         /*
          * For now, we're just setting up the board and printing out the state to console.
          */
-        new Chessboard();
-        Board board = new Board();
-        final Map boardState = board.boardState;
+        if (GameState.State == GameState.STATE.GAME) {
+            new Chessboard();
+            Board board = new Board();
+            final Map boardState = board.boardState;
 
-        Player whitePlayer = new Player();
-        Player blackPlayer = new Player();
-        board.currentPlayer = whitePlayer;
+            Player whitePlayer = new Player();
+            Player blackPlayer = new Player();
+            board.currentPlayer = whitePlayer;
 
-        board.setupPieces();
-        printBoard(boardState);
-
-
+            board.setupPieces();
+            printBoard(boardState);
+        } else if (GameState.State == GameState.STATE.MENU){
+            new MainMenu();
+        }
     }
 
     private static void printBoard(Map boardState) {
