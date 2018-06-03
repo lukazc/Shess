@@ -5,6 +5,7 @@ import com.lukazc.engine.game.Move;
 import com.lukazc.engine.pieces.Piece;
 import com.lukazc.engine.player.Player;
 import com.lukazc.gui.Chessboard;
+import com.lukazc.gui.LoadGame;
 import com.lukazc.gui.MainMenu;
 
 import java.util.Map;
@@ -14,6 +15,7 @@ public class Main {
     private static Board board;
     public static Chessboard chessboard;
     public static MainMenu mainMenu;
+    public static LoadGame loadGame;
 
     public static void main(String[] args) {
 
@@ -43,6 +45,8 @@ public class Main {
         // Load main menu
 
         mainMenu = new MainMenu();
+
+        loadGame = new LoadGame();
 
         // Load chessboard
 
