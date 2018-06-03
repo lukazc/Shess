@@ -11,6 +11,7 @@ import static com.lukazc.Main.mainMenu;
 public class MainMenu extends JFrame {
 
     private JButton playButton;
+    private JButton quitButton;
     private JLabel background;
 
     public MainMenu()
@@ -34,17 +35,18 @@ public class MainMenu extends JFrame {
         setContentPane(new JLabel(new ImageIcon("./././././assets/mainMenu.jpg")));
         setLayout(new FlowLayout());
 
-        // Push button vertically
 
-        add(Box.createVerticalStrut(200));
+        // Push buttons vertical
 
-        // Create background and button, center button
+        add(Box.createVerticalStrut(280)); // Box height 280px
+
+        // Create background and playButton, center button
 
         background = new JLabel("");
         playButton = new JButton("PLAY");
         playButton.setAlignmentX(CENTER_ALIGNMENT);
 
-        // Add ActionListener to change game state on click
+        // Add ActionListener to swap windows
 
         playButton.addActionListener(new ActionListener(){
 
@@ -57,14 +59,36 @@ public class MainMenu extends JFrame {
             }
         });
 
-        // Insert background and button
+        // Create spacing between buttons
+
+        add(Box.createVerticalStrut(40));
+
+        // Create quitButton, center button
+
+        quitButton = new JButton("QUIT");
+        quitButton.setAlignmentX(CENTER_ALIGNMENT);
+
+        // Add ActionListener to quit on click
+
+        quitButton.addActionListener(new ActionListener(){
+
+            public void actionPerformed(ActionEvent e){
+
+                // When play button is pressed hide main menu window and show game window
+
+                mainMenu.dispose();
+            }
+        });
+
+        // Glue box contents
+
+        add(Box.createVerticalGlue());
+
+        // Insert background and buttons
 
         add(background);
         add(playButton);
-
-        // Glue the pushing boxes
-
-        add(Box.createVerticalGlue());
+        add(quitButton);
 
         // For constant refresh of the screen
 
