@@ -2,17 +2,14 @@ package com.lukazc.gui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.concurrent.TimeUnit;
 
 import static com.lukazc.Main.*;
 
 public class MainMenu extends JFrame {
 
-    private JButton playButton;
-    private JButton quitButton;
-    private JLabel background;
+    private final JButton playButton;
+    private final JButton quitButton;
+    private final JLabel background;
 
     public MainMenu()
 
@@ -48,28 +45,11 @@ public class MainMenu extends JFrame {
 
         // Add ActionListener to swap windows
 
-        playButton.addActionListener(new ActionListener(){
-
-            public void actionPerformed(ActionEvent e){
-
-                // When play button is pressed hide main menu window and show game window
-
-                mainMenu.setVisible(false);
-
-                while(!chessboard.isVisible()) {
-                    loadGame.setVisible(true);
-                }
-
-                if (loadGame.isVisible()){
-                try {
-                    TimeUnit.SECONDS.sleep(5);
-                } catch (InterruptedException e1) {
-                    e1.printStackTrace();
-                }
-                loadGame.setVisible(false);
-                chessboard.setVisible(true);
-                }
-            }
+        playButton.addActionListener(e -> {
+            // When play button is pressed hide main menu window and show game window
+            mainMenu.setVisible(false);
+            splash.setVisible(true);
+            chessboard.setVisible(true);
         });
 
         // Create spacing between buttons
@@ -83,14 +63,9 @@ public class MainMenu extends JFrame {
 
         // Add ActionListener to quit on click
 
-        quitButton.addActionListener(new ActionListener(){
-
-            public void actionPerformed(ActionEvent e){
-
-                // When play button is pressed hide main menu window and show game window
-
-                mainMenu.dispose();
-            }
+        quitButton.addActionListener(e -> {
+            // When quit button is pressed hide main menu window and show game window
+            System.exit(0);
         });
 
         // Glue box contents
@@ -105,8 +80,7 @@ public class MainMenu extends JFrame {
 
         // For constant refresh of the screen
 
-        setSize(499,499);
-        setSize(500,500);
+        setVisible(true);
     }
 }
 
