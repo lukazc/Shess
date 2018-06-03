@@ -11,9 +11,8 @@ public class Rook extends Piece {
     }
 
     @Override
-    public Collection<Board.Coordinates> findLegalMoves() {
+    public Collection<Board.Coordinates> findLegalMoves(Board board) {
         Board.Coordinates position = this.getPiecePositionTracker();
-
 
         return null;
     }

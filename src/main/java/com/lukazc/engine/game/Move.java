@@ -28,26 +28,30 @@ public class Move {
         // Once a piece has been selected:
         if (piece != null) {
             if (origin == null) {
-            // Set its coordinates as "origin".
+                // Set its coordinates as "origin".
                 setOrigin(coordinates);
             } else {
-            // Second click selects the "destination".
-                setDestination(coordinates);
-                board.updateBoardState(this);
-                piece.registerMove();
-                piece.setPiecePositionTracker(coordinates);
-                startNextTurn();
+                // Second click selects the "destination".
+                if (setDestination(coordinates)) {
+                    board.updateBoardState(this);
+                    piece.registerMove();
+                    piece.setPiecePositionTracker(coordinates);
+                    startNextTurn();
+                }
             }
         }
     }
 
     // Reset all Move information, and switch player.
     private void startNextTurn() {
+        quitMove();
+        whiteMoves = !whiteMoves;
+    }
+
+    private void quitMove() {
         piece = null;
         origin = null;
-        setDestination(null);
-
-        whiteMoves = !whiteMoves;
+        destination = null;
     }
 
     // If the selected Piece is one of the player's pieces, prepare it to move.
@@ -57,12 +61,24 @@ public class Move {
         if (whiteMoves && selection.getPieceTeam() == Team.WHITE) piece = selection;
         if (!whiteMoves && selection.getPieceTeam() == Team.BLACK) piece = selection;
     }
-    private void setOrigin(Board.Coordinates coordinates){
+
+    private void setOrigin(Board.Coordinates coordinates) {
         if (piece != null) origin = coordinates;
     }
-    private void setDestination(Board.Coordinates destination) {
+
+    private boolean setDestination(Board.Coordinates destination) {
         // TODO: check if destination lies inside legalMoves.
-        this.destination = destination;
+        if (piece.findLegalMoves(board) == null) {
+            quitMove();
+            return false;
+        }
+        if (piece.findLegalMoves(board).contains(destination)) {
+            this.destination = destination;
+            return true;
+        } else {
+            quitMove();
+            return false;
+        }
     }
 
 

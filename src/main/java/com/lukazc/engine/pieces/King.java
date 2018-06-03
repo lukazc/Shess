@@ -11,7 +11,7 @@ public class King extends Piece {
     }
 
     @Override
-    public Collection<Board.Coordinates> findLegalMoves() {
+    public Collection<Board.Coordinates> findLegalMoves(Board board) {
         return null;
     }
 }

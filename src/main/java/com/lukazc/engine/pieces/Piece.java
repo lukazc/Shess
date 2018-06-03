@@ -1,5 +1,6 @@
 package com.lukazc.engine.pieces;
 
+import com.lukazc.engine.game.Board;
 import com.lukazc.engine.game.Board.Coordinates;
 import com.lukazc.engine.player.Team;
 
@@ -11,7 +12,7 @@ public abstract class Piece {
     private Coordinates piecePositionTracker;
     private boolean isFirstMove;
 
-    private Collection<Coordinates> legalMoves;
+    Collection<Coordinates> legalMoves;
 
     Piece(PieceType pieceType, Team pieceTeam, Coordinates piecePositionTracker) {
         this.pieceType = pieceType;
@@ -37,7 +38,17 @@ public abstract class Piece {
     public void registerMove() { if (this.isFirstMove) this.isFirstMove = false; }
 
     //    Returns a list of coordinates of all tiles this piece can reach.
-    public abstract Collection<Coordinates> findLegalMoves();
+    public abstract Collection<Coordinates> findLegalMoves(Board board);
+
+    /**
+     * Helper method to check if locations passed in are mapped on our generated board.
+     * @param newX
+     * @param newY
+     * @return boolean true if move is in board bounds
+     */
+    boolean inBoardBounds(int newX, int newY){
+        return newX < 8 && newY < 8 && newX > -1 && newY > -1;
+    }
 
     public enum PieceType {
 

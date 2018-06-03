@@ -82,7 +82,7 @@ public class Board {
      * @return Set of Coordinates of legal moves for White or Black pieces.
      */
     private Set<Coordinates> findLegalMoves(final Collection<Piece> pieces) {
-        return pieces.stream().flatMap(piece -> piece.findLegalMoves().stream())
+        return pieces.stream().flatMap(piece -> piece.findLegalMoves(this).stream())
                 .collect(Collectors.toSet());
     }
 
@@ -113,7 +113,7 @@ public class Board {
         setupBishops();
         setupKings();
         setupKnights();
-        setupPawns();
+//        setupPawns();
         setupQueens();
         setupRooks();
     }
