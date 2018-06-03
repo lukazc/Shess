@@ -32,9 +32,13 @@ public class Bishop extends Piece {
             Board.Coordinates coordinates = new Board.Coordinates(x + xMod, y + yMod);
             Piece piece = (Piece) boardState.get(coordinates);
 
+            // If empty tile, add to legalMoves.
             if (piece == null) {
                 legalMoves.add(coordinates);
             }
+            // If there's a piece on the tile,
+            // and it's the enemy, but not the King,
+            // add to legalMoves.
             if (piece != null) {
                 if (piece.getPieceTeam() != this.getPieceTeam()
                         && piece.getPieceType() != PieceType.KING) {
@@ -108,11 +112,7 @@ public class Bishop extends Piece {
             xMod++;
             yMod++;
         }
-        System.out.println(this);
-        for (Board.Coordinates cooord: legalMoves
-             ) {
-            System.out.println(cooord.getX()+","+cooord.getY());
-        }
+
         return legalMoves;
     }
 
