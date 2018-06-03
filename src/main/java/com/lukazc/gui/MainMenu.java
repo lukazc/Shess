@@ -2,9 +2,10 @@ package com.lukazc.gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import static com.lukazc.Main.chessboard;
-import static com.lukazc.Main.mainMenu;
+import static com.lukazc.Main.*;
 
 public class MainMenu extends JFrame {
 
@@ -49,7 +50,13 @@ public class MainMenu extends JFrame {
         playButton.addActionListener(e -> {
             // When play button is pressed hide main menu window and show game window
             mainMenu.setVisible(false);
-            chessboard.setVisible(true);
+            splash.display();
+            int delay = 4000; //milliseconds
+            ActionListener stopSplash = evt -> {
+                splash.exitSplash();
+                chessboard.setVisible(true);
+            };
+            new Timer(delay, stopSplash).start();
         });
 
         // Create spacing between buttons
@@ -80,8 +87,7 @@ public class MainMenu extends JFrame {
 
         // For constant refresh of the screen
 
-        setSize(499,499);
-        setSize(500,500);
+        setVisible(true);
     }
 }
 
