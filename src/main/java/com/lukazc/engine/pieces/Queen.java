@@ -9,8 +9,6 @@ import java.util.Set;
 
 public class Queen extends Piece {
 
-    private final Set<Board.Coordinates> legalMoves = new HashSet<>();
-
     public Queen(PieceType pieceType, Team pieceTeam, Board.Coordinates piecePosition) {
         super(pieceType, pieceTeam, piecePosition);
     }
@@ -18,7 +16,7 @@ public class Queen extends Piece {
     @Override
     public Collection<Board.Coordinates> findLegalMoves(Board board) {
 
-        legalMoves.clear();
+clearLegalMoves();
 
         return null;
     }

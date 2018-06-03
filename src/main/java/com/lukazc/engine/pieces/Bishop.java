@@ -3,11 +3,10 @@ package com.lukazc.engine.pieces;
 import com.lukazc.engine.game.Board;
 import com.lukazc.engine.player.Team;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Map;
 
 public class Bishop extends Piece {
-
-    private final Set<Board.Coordinates> legalMoves = new HashSet<>();
 
     public Bishop(PieceType pieceType, Team pieceTeam, Board.Coordinates piecePosition) {
         super(pieceType, pieceTeam, piecePosition);
@@ -20,7 +19,7 @@ public class Bishop extends Piece {
     @Override
     public Collection<Board.Coordinates> findLegalMoves(Board board) {
 
-        legalMoves.clear();
+        clearLegalMoves();
 
         Board.Coordinates startPosition = this.getPiecePositionTracker();
         int x = startPosition.getX();
@@ -38,7 +37,7 @@ public class Bishop extends Piece {
 
             // If empty tile, add to legalMoves.
             if (piece == null) {
-                legalMoves.add(coordinates);
+                addLegalMove(coordinates);
             }
             // If there's a piece on the tile,
             // and it's the enemy, but not the King,
@@ -46,7 +45,7 @@ public class Bishop extends Piece {
             if (piece != null) {
                 if (piece.getPieceTeam() != this.getPieceTeam()
                         && piece.getPieceType() != PieceType.KING) {
-                    legalMoves.add(coordinates);
+                    addLegalMove(coordinates);
                 }
                 break;
             }
@@ -62,12 +61,12 @@ public class Bishop extends Piece {
             Piece piece = (Piece) boardState.get(coordinates);
 
             if (piece == null) {
-                legalMoves.add(coordinates);
+                addLegalMove(coordinates);
             }
             if (piece != null) {
                 if (piece.getPieceTeam() != this.getPieceTeam()
                         && piece.getPieceType() != PieceType.KING) {
-                    legalMoves.add(coordinates);
+                    addLegalMove(coordinates);
                 }
                 break;
             }
@@ -83,12 +82,12 @@ public class Bishop extends Piece {
             Piece piece = (Piece) boardState.get(coordinates);
 
             if (piece == null) {
-                legalMoves.add(coordinates);
+                addLegalMove(coordinates);
             }
             if (piece != null) {
                 if (piece.getPieceTeam() != this.getPieceTeam()
                         && piece.getPieceType() != PieceType.KING) {
-                    legalMoves.add(coordinates);
+                    addLegalMove(coordinates);
                 }
                 break;
             }
@@ -104,12 +103,12 @@ public class Bishop extends Piece {
             Piece piece = (Piece) boardState.get(coordinates);
 
             if (piece == null) {
-                legalMoves.add(coordinates);
+                addLegalMove(coordinates);
             }
             if (piece != null) {
                 if (piece.getPieceTeam() != this.getPieceTeam()
                         && piece.getPieceType() != PieceType.KING) {
-                    legalMoves.add(coordinates);
+                    addLegalMove(coordinates);
                 }
                 break;
             }
@@ -117,9 +116,8 @@ public class Bishop extends Piece {
             yMod++;
         }
 
-        return legalMoves;
+        return getLegalMoves();
     }
-
 
 
 }

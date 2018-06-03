@@ -4,12 +4,8 @@ import com.lukazc.engine.game.Board;
 import com.lukazc.engine.player.Team;
 
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 
 public class Pawn extends Piece {
-
-    private final Set<Board.Coordinates> legalMoves = new HashSet<>();
 
     public Pawn(PieceType pieceType, Team pieceTeam, Board.Coordinates piecePosition) {
         super(pieceType, pieceTeam, piecePosition);
@@ -18,7 +14,7 @@ public class Pawn extends Piece {
     @Override
     public Collection<Board.Coordinates> findLegalMoves(Board board) {
 
-        legalMoves.clear();
+        clearLegalMoves();
 
         return null;
     }

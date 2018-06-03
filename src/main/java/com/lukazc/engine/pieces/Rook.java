@@ -4,13 +4,9 @@ import com.lukazc.engine.game.Board;
 import com.lukazc.engine.player.Team;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 public class Rook extends Piece {
-
-    private final Set<Board.Coordinates> legalMoves = new HashSet<>();
 
     public Rook(PieceType pieceType, Team pieceTeam, Board.Coordinates piecePosition) {
         super(pieceType, pieceTeam, piecePosition);
@@ -24,7 +20,7 @@ public class Rook extends Piece {
     @Override
     public Collection<Board.Coordinates> findLegalMoves(Board board) {
 
-        legalMoves.clear();
+        clearLegalMoves();
 
         Board.Coordinates startPosition = this.getPiecePositionTracker();
         int x = startPosition.getX();
@@ -41,12 +37,12 @@ public class Rook extends Piece {
             Piece piece = (Piece) boardState.get(coordinates);
 
             if (piece == null) {
-                legalMoves.add(coordinates);
+                addLegalMove(coordinates);
             }
             if (piece != null) {
                 if (piece.getPieceTeam() != this.getPieceTeam()
                         && piece.getPieceType() != PieceType.KING) {
-                    legalMoves.add(coordinates);
+                    addLegalMove(coordinates);
                 }
                 break;
             }
@@ -59,16 +55,16 @@ public class Rook extends Piece {
 
         // South vertical
         while (inBoardBounds(x + xMod, y)) {
-            Board.Coordinates coordinates = new Board.Coordinates(x + xMod, y );
+            Board.Coordinates coordinates = new Board.Coordinates(x + xMod, y);
             Piece piece = (Piece) boardState.get(coordinates);
 
             if (piece == null) {
-                legalMoves.add(coordinates);
+                addLegalMove(coordinates);
             }
             if (piece != null) {
                 if (piece.getPieceTeam() != this.getPieceTeam()
                         && piece.getPieceType() != PieceType.KING) {
-                    legalMoves.add(coordinates);
+                    addLegalMove(coordinates);
                 }
                 break;
             }
@@ -80,17 +76,17 @@ public class Rook extends Piece {
         yMod = 1;
 
         // East horizontal
-        while (inBoardBounds(x , y + yMod)) {
-            Board.Coordinates coordinates = new Board.Coordinates(x , y + yMod);
+        while (inBoardBounds(x, y + yMod)) {
+            Board.Coordinates coordinates = new Board.Coordinates(x, y + yMod);
             Piece piece = (Piece) boardState.get(coordinates);
 
             if (piece == null) {
-                legalMoves.add(coordinates);
+                addLegalMove(coordinates);
             }
             if (piece != null) {
                 if (piece.getPieceTeam() != this.getPieceTeam()
                         && piece.getPieceType() != PieceType.KING) {
-                    legalMoves.add(coordinates);
+                    addLegalMove(coordinates);
                 }
                 break;
             }
@@ -102,17 +98,17 @@ public class Rook extends Piece {
         yMod = 1;
 
         // West horizontal
-        while (inBoardBounds(x , y - yMod)) {
-            Board.Coordinates coordinates = new Board.Coordinates(x , y - yMod);
+        while (inBoardBounds(x, y - yMod)) {
+            Board.Coordinates coordinates = new Board.Coordinates(x, y - yMod);
             Piece piece = (Piece) boardState.get(coordinates);
 
             if (piece == null) {
-                legalMoves.add(coordinates);
+                addLegalMove(coordinates);
             }
             if (piece != null) {
                 if (piece.getPieceTeam() != this.getPieceTeam()
                         && piece.getPieceType() != PieceType.KING) {
-                    legalMoves.add(coordinates);
+                    addLegalMove(coordinates);
                 }
                 break;
             }
@@ -120,9 +116,8 @@ public class Rook extends Piece {
             yMod++;
         }
 
-        return legalMoves;
+        return getLegalMoves();
     }
-
 
 
 }

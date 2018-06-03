@@ -5,6 +5,8 @@ import com.lukazc.engine.game.Board.Coordinates;
 import com.lukazc.engine.player.Team;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 public abstract class Piece {
     private final PieceType pieceType;
@@ -12,7 +14,7 @@ public abstract class Piece {
     private Coordinates piecePositionTracker;
     private boolean isFirstMove;
 
-    Collection<Coordinates> legalMoves;
+    private final Set<Coordinates> legalMoves = new HashSet<>();
 
     Piece(PieceType pieceType, Team pieceTeam, Coordinates piecePositionTracker) {
         this.pieceType = pieceType;
@@ -39,8 +41,19 @@ public abstract class Piece {
     // Register when the Piece has moved for the first time.
     public void registerMove() { if (this.isFirstMove) this.isFirstMove = false; }
 
-    //    Returns a list of coordinates of all tiles this piece can reach.
+    /** Returns a list of coordinates of all tiles this piece can reach.*/
     public abstract Collection<Coordinates> findLegalMoves(Board board);
+
+    public void clearLegalMoves() {
+        this.legalMoves.clear();
+    }
+    public void addLegalMove(Coordinates coordinates){
+        this.legalMoves.add(coordinates);
+    }
+
+    public Collection<Coordinates> getLegalMoves() {
+        return this.legalMoves;
+    }
 
     /**
      * Helper method to check if locations passed in are mapped on our generated board.
