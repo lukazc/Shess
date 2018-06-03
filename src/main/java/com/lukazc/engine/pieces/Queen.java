@@ -4,8 +4,6 @@ import com.lukazc.engine.game.Board;
 import com.lukazc.engine.player.Team;
 
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 
 public class Queen extends Piece {
 
@@ -16,7 +14,7 @@ public class Queen extends Piece {
     @Override
     public Collection<Board.Coordinates> findLegalMoves(Board board) {
 
-clearLegalMoves();
+        clearLegalMoves();
 
         return null;
     }

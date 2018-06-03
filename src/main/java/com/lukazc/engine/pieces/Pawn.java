@@ -61,10 +61,12 @@ public class Pawn extends Piece {
         // Double push move.
         // Only if first move and empty tile.
         if (this.isFirstMove()) {
-            Board.Coordinates coordinates = new Board.Coordinates(x+doublePush, y);
-            Piece piece = (Piece) boardState.get(coordinates);
+            Board.Coordinates coordinatesFirstTile = new Board.Coordinates(x+push, y);
+            Board.Coordinates coordinatesSecondTile = new Board.Coordinates(x+doublePush, y);
+            Piece pieceFirstTile = (Piece) boardState.get(coordinatesFirstTile);
+            Piece pieceSecondTile = (Piece) boardState.get(coordinatesSecondTile);
 
-            if (piece == null) addLegalMove(coordinates);
+            if (pieceFirstTile == null && pieceSecondTile == null) addLegalMove(coordinatesSecondTile);
         }
 
 
