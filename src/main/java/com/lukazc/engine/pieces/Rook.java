@@ -119,5 +119,9 @@ public class Rook extends Piece {
         return getLegalMoves();
     }
 
+    @Override
+    public Collection<Board.Coordinates> findIllegalMoves(Board board) {
+        return null;
+    }
 
 }

@@ -73,4 +73,10 @@ public class Pawn extends Piece {
 
         return getLegalMoves();
     }
+
+    @Override
+    public Collection<Board.Coordinates> findIllegalMoves(Board board) {
+        return null;
+    }
+
 }

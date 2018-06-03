@@ -83,6 +83,11 @@ public class Board {
                 .collect(Collectors.toSet());
     }
 
+    private Set<Coordinates> findIllegalMoves(final Collection<Piece> pieces) {
+        return pieces.stream().flatMap(piece -> piece.findLegalMoves(this).stream())
+                .collect(Collectors.toSet());
+    }
+
     /**
      * Remove Piece from origin, and set the Piece to new destination coordinates.
      */

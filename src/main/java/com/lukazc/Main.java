@@ -45,6 +45,8 @@ public class Main {
 
         mainMenu = new MainMenu();
 
+        // Load splash screen
+
         splash = new Splash();
 
         // Load chessboard

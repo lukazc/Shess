@@ -15,6 +15,8 @@ public abstract class Piece {
     private boolean isFirstMove;
 
     private final Set<Coordinates> legalMoves = new HashSet<>();
+    private final Set<Coordinates> illegalMoves = new HashSet<>();
+
 
     Piece(PieceType pieceType, Team pieceTeam, Coordinates piecePositionTracker) {
         this.pieceType = pieceType;
@@ -44,15 +46,24 @@ public abstract class Piece {
     /** Returns a list of coordinates of all tiles this piece can reach.*/
     public abstract Collection<Coordinates> findLegalMoves(Board board);
 
-    public void clearLegalMoves() {
-        legalMoves.clear();
-    }
+    public abstract Collection<Coordinates> findIllegalMoves(Board board);
+
+    public void clearLegalMoves() { legalMoves.clear(); }
+    public void clearIllegalMoves() { illegalMoves.clear(); }
+
     public void addLegalMove(Coordinates coordinates){
         legalMoves.add(coordinates);
+    }
+    public void addIllegalMove(Coordinates coordinates){
+        illegalMoves.add(coordinates);
     }
 
     public Collection<Coordinates> getLegalMoves() {
         return legalMoves;
+    }
+
+    public Collection<Coordinates> getIllegalMoves() {
+        return illegalMoves;
     }
 
     /**

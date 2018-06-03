@@ -18,4 +18,10 @@ public class Queen extends Piece {
 
         return null;
     }
+
+    @Override
+    public Collection<Board.Coordinates> findIllegalMoves(Board board) {
+        return null;
+    }
+
 }

@@ -42,6 +42,11 @@ public class Knight extends Piece {
         return getLegalMoves();
     }
 
+    @Override
+    public Collection<Board.Coordinates> findIllegalMoves(Board board) {
+        return null;
+    }
+
     private void checkTile(int x, int y, Map boardState) {
         if (inBoardBounds(x, y)) {
             Board.Coordinates coordinates = new Board.Coordinates(x, y);
