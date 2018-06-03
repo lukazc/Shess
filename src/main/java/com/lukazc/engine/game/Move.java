@@ -34,6 +34,8 @@ public class Move {
             // Second click selects the "destination".
                 setDestination(coordinates);
                 board.updateBoardState(this);
+                piece.registerMove();
+                piece.setPiecePositionTracker(coordinates);
                 startNextTurn();
             }
         }
