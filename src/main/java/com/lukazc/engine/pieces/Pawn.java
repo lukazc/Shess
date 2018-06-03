@@ -4,6 +4,7 @@ import com.lukazc.engine.game.Board;
 import com.lukazc.engine.player.Team;
 
 import java.util.Collection;
+import java.util.Map;
 
 public class Pawn extends Piece {
 
@@ -14,8 +15,60 @@ public class Pawn extends Piece {
     @Override
     public Collection<Board.Coordinates> findLegalMoves(Board board) {
 
+        // TODO: en passant and promotion
+
+        Board.Coordinates startPosition = this.getPiecePositionTracker();
+        int x = startPosition.getX();
+        int y = startPosition.getY();
+
+        Map boardState = board.getBoardState();
+
         clearLegalMoves();
 
-        return null;
+        // Set direction of movement, according to team.
+        int push;
+        int doublePush;
+        if (getPieceTeam() == Team.BLACK) {
+            push = 1;
+            doublePush = 2;
+        } else {
+            push = -1;
+            doublePush =-2;
+        }
+
+        // Regular push move
+        for (int i = -1; i <=1 ; i++) {
+            if (inBoardBounds(x+push, y+i)) {
+                Board.Coordinates coordinates = new Board.Coordinates(x+push, y+i);
+                Piece piece = (Piece) boardState.get(coordinates);
+
+                // If empty tile is in front of Pawn, add to legalMoves.
+                if (piece == null && i == 0) {
+                    addLegalMove(coordinates);
+                }
+                // If there's a piece on the diagonally positioned tile,
+                // and it's the enemy, but not the King,
+                // add to legalMoves.
+                if (piece != null && i != 0) {
+                    if (piece.getPieceTeam() != this.getPieceTeam()
+                            && piece.getPieceType() != PieceType.KING) {
+                        addLegalMove(coordinates);
+                    }
+                }
+            }
+        }
+
+        // Double push move.
+        // Only if first move and empty tile.
+        if (this.isFirstMove()) {
+            Board.Coordinates coordinates = new Board.Coordinates(x+doublePush, y);
+            Piece piece = (Piece) boardState.get(coordinates);
+
+            if (piece == null) addLegalMove(coordinates);
+        }
+
+
+
+        return getLegalMoves();
     }
 }

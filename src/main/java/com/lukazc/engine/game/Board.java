@@ -110,7 +110,7 @@ public class Board {
         setupBishops();
         setupKings();
         setupKnights();
-//        setupPawns();
+        setupPawns();
         setupQueens();
         setupRooks();
     }

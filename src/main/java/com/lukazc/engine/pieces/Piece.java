@@ -45,14 +45,14 @@ public abstract class Piece {
     public abstract Collection<Coordinates> findLegalMoves(Board board);
 
     public void clearLegalMoves() {
-        this.legalMoves.clear();
+        legalMoves.clear();
     }
     public void addLegalMove(Coordinates coordinates){
-        this.legalMoves.add(coordinates);
+        legalMoves.add(coordinates);
     }
 
     public Collection<Coordinates> getLegalMoves() {
-        return this.legalMoves;
+        return legalMoves;
     }
 
     /**
