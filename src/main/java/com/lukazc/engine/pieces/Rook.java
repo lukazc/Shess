@@ -10,19 +10,20 @@ import java.util.Set;
 
 public class Rook extends Piece {
 
-    Set<Board.Coordinates> legalMoves = new HashSet<>();
+    private final Set<Board.Coordinates> legalMoves = new HashSet<>();
 
     public Rook(PieceType pieceType, Team pieceTeam, Board.Coordinates piecePosition) {
         super(pieceType, pieceTeam, piecePosition);
     }
 
     /**
-     * Check board diagonally in 4 directions. Collect coordinates of empty tiles to a Set.
+     * Check board horizontally and vertically from Rook's position.
+     * Collect coordinates of empty tiles to a Set.
      * Stop when a Piece is found. If it's an enemy piece, store its coordinates too.
      */
     @Override
     public Collection<Board.Coordinates> findLegalMoves(Board board) {
-        
+
         legalMoves.clear();
 
         Board.Coordinates startPosition = this.getPiecePositionTracker();
@@ -34,7 +35,7 @@ public class Rook extends Piece {
 
         Map boardState = board.getBoardState();
 
-        // East horizontal
+        // North vertical
         while (inBoardBounds(x - xMod, y)) {
             Board.Coordinates coordinates = new Board.Coordinates(x - xMod, y);
             Piece piece = (Piece) boardState.get(coordinates);
@@ -55,7 +56,8 @@ public class Rook extends Piece {
 
         xMod = 1;
         yMod = 1;
-        // West horizontal
+
+        // South vertical
         while (inBoardBounds(x + xMod, y)) {
             Board.Coordinates coordinates = new Board.Coordinates(x + xMod, y );
             Piece piece = (Piece) boardState.get(coordinates);
@@ -76,7 +78,8 @@ public class Rook extends Piece {
 
         xMod = 1;
         yMod = 1;
-        // North vertical
+
+        // East horizontal
         while (inBoardBounds(x , y + yMod)) {
             Board.Coordinates coordinates = new Board.Coordinates(x , y + yMod);
             Piece piece = (Piece) boardState.get(coordinates);
@@ -97,7 +100,8 @@ public class Rook extends Piece {
 
         xMod = 1;
         yMod = 1;
-        // South vertical
+
+        // West horizontal
         while (inBoardBounds(x , y - yMod)) {
             Board.Coordinates coordinates = new Board.Coordinates(x , y - yMod);
             Piece piece = (Piece) boardState.get(coordinates);
@@ -115,11 +119,7 @@ public class Rook extends Piece {
             xMod++;
             yMod++;
         }
-        System.out.println(this);
-        for (Board.Coordinates cooord: legalMoves
-                ) {
-            System.out.println(cooord.getX()+","+cooord.getY());
-        }
+
         return legalMoves;
     }
 

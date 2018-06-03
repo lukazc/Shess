@@ -10,15 +10,15 @@ import java.util.Set;
 
 public class King extends Piece {
 
-    Set<Board.Coordinates> legalMoves = new HashSet<>();
+    private final Set<Board.Coordinates> legalMoves = new HashSet<>();
 
     public King(PieceType pieceType, Team pieceTeam, Board.Coordinates piecePosition) {
         super(pieceType, pieceTeam, piecePosition);
     }
 
     /**
-     * Check board diagonally in 4 directions. Collect coordinates of empty tiles to a Set.
-     * Stop when a Piece is found. If it's an enemy piece, store its coordinates too.
+     * Check board tiles directly around the King.
+     * Collect coordinates of empty tiles and those occupied by enemy pieces.
      */
     @Override
     public Collection<Board.Coordinates> findLegalMoves(Board board) {
@@ -28,9 +28,6 @@ public class King extends Piece {
         Board.Coordinates startPosition = this.getPiecePositionTracker();
         int x = startPosition.getX();
         int y = startPosition.getY();
-
-        int xMod = 1;
-        int yMod = 1;
 
         Map boardState = board.getBoardState();
 

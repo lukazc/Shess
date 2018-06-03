@@ -2,7 +2,6 @@ package com.lukazc.engine.game;
 
 import com.lukazc.Main;
 import com.lukazc.engine.pieces.*;
-import com.lukazc.engine.player.Player;
 import com.lukazc.engine.player.Team;
 
 import java.util.Collection;
@@ -68,13 +67,11 @@ public class Board {
      * @value Piece object, or null.
      */
     private final Map<Coordinates, Piece> boardState = new HashMap<>();
-    // Currently moving player. Black or White.
-    public Player currentPlayer;
+
     // Sets of players' active pieces.
 //    private final Collection<Piece> whiteLivePieces;
 //    private final Collection<Piece> blackLivePieces;
-    // Move information: origin, destination, type of piece, isFirstMove.
-    private Move move;
+
 
     /**
      * Find all legal moves of some collection of pieces.
@@ -214,15 +211,4 @@ public class Board {
         King whiteKing = new King(Piece.PieceType.KING, Team.WHITE, whiteKingStartingPoint);
         boardState.put(whiteKingStartingPoint, whiteKing);
     }
-
-    /**
-     * Helper method to check if locations passed in are mapped on our generated board.
-     * @param newX
-     * @param newY
-     * @return boolean true if move is in board bounds
-     */
-    public boolean inBoardBounds(int newX, int newY){
-        return newX < 8 && newY < 8 && newX > -1 && newY > -1;
-    }
-
 }

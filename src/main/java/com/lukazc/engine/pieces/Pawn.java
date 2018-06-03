@@ -9,7 +9,7 @@ import java.util.Set;
 
 public class Pawn extends Piece {
 
-    Set<Board.Coordinates> legalMoves = new HashSet<>();
+    private final Set<Board.Coordinates> legalMoves = new HashSet<>();
 
     public Pawn(PieceType pieceType, Team pieceTeam, Board.Coordinates piecePosition) {
         super(pieceType, pieceTeam, piecePosition);

@@ -7,7 +7,7 @@ import java.util.*;
 
 public class Bishop extends Piece {
 
-    Set<Board.Coordinates> legalMoves = new HashSet<>();
+    private final Set<Board.Coordinates> legalMoves = new HashSet<>();
 
     public Bishop(PieceType pieceType, Team pieceTeam, Board.Coordinates piecePosition) {
         super(pieceType, pieceTeam, piecePosition);

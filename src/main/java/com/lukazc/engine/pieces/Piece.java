@@ -35,6 +35,8 @@ public abstract class Piece {
     public boolean isFirstMove() {
         return isFirstMove;
     }
+
+    // Register when the Piece has moved for the first time.
     public void registerMove() { if (this.isFirstMove) this.isFirstMove = false; }
 
     //    Returns a list of coordinates of all tiles this piece can reach.
@@ -52,192 +54,12 @@ public abstract class Piece {
 
     public enum PieceType {
 
-        PAWN("P") {
-            @Override
-            public boolean isPawn() {
-                return true;
-            }
-
-            @Override
-            public boolean isBishop() {
-                return false;
-            }
-
-            @Override
-            public boolean isRook() {
-                return false;
-            }
-
-            @Override
-            public boolean isKing() {
-                return false;
-            }
-
-            @Override
-            public boolean isQueen() {
-                return false;
-            }
-
-            @Override
-            public boolean isKnight() {
-                return false;
-            }
-        },
-        KNIGHT("N") {
-            @Override
-            public boolean isPawn() {
-                return false;
-            }
-
-            @Override
-            public boolean isBishop() {
-                return false;
-            }
-
-            @Override
-            public boolean isRook() {
-                return false;
-            }
-
-            @Override
-            public boolean isKing() {
-                return false;
-            }
-
-            @Override
-            public boolean isQueen() {
-                return false;
-            }
-
-            @Override
-            public boolean isKnight() {
-                return true;
-            }
-        },
-        BISHOP("B") {
-            @Override
-            public boolean isPawn() {
-                return false;
-            }
-
-            @Override
-            public boolean isBishop() {
-                return true;
-            }
-
-            @Override
-            public boolean isRook() {
-                return false;
-            }
-
-            @Override
-            public boolean isKing() {
-                return false;
-            }
-
-            @Override
-            public boolean isQueen() {
-                return false;
-            }
-
-            @Override
-            public boolean isKnight() {
-                return false;
-            }
-        },
-        ROOK("R") {
-            @Override
-            public boolean isPawn() {
-                return false;
-            }
-
-            @Override
-            public boolean isBishop() {
-                return false;
-            }
-
-            @Override
-            public boolean isRook() {
-                return true;
-            }
-
-            @Override
-            public boolean isKing() {
-                return false;
-            }
-
-            @Override
-            public boolean isQueen() {
-                return false;
-            }
-
-            @Override
-            public boolean isKnight() {
-                return false;
-            }
-        },
-        QUEEN("Q") {
-            @Override
-            public boolean isPawn() {
-                return false;
-            }
-
-            @Override
-            public boolean isBishop() {
-                return false;
-            }
-
-            @Override
-            public boolean isRook() {
-                return false;
-            }
-
-            @Override
-            public boolean isKing() {
-                return false;
-            }
-
-            @Override
-            public boolean isQueen() {
-                return true;
-            }
-
-            @Override
-            public boolean isKnight() {
-                return false;
-            }
-        },
-        KING("K") {
-            @Override
-            public boolean isPawn() {
-                return false;
-            }
-
-            @Override
-            public boolean isBishop() {
-                return false;
-            }
-
-            @Override
-            public boolean isRook() {
-                return false;
-            }
-
-            @Override
-            public boolean isKing() {
-                return true;
-            }
-
-            @Override
-            public boolean isQueen() {
-                return false;
-            }
-
-            @Override
-            public boolean isKnight() {
-                return false;
-            }
-        };
+        PAWN("P") {},
+        KNIGHT("N") {},
+        BISHOP("B") {},
+        ROOK("R") {},
+        QUEEN("Q") {},
+        KING("K") {};
 
         private final String pieceName;
 
@@ -250,12 +72,6 @@ public abstract class Piece {
             this.pieceName = pieceName;
         }
 
-        public abstract boolean isPawn();
-        public abstract boolean isBishop();
-        public abstract boolean isRook();
-        public abstract boolean isKing();
-        public abstract boolean isQueen();
-        public abstract boolean isKnight();
 
     }
 

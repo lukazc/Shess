@@ -3,7 +3,6 @@ package com.lukazc;
 import com.lukazc.engine.game.Board;
 import com.lukazc.engine.game.Move;
 import com.lukazc.engine.pieces.Piece;
-import com.lukazc.engine.player.Player;
 import com.lukazc.gui.Chessboard;
 import com.lukazc.gui.MainMenu;
 
@@ -52,20 +51,14 @@ public class Main {
 
         board = new Board();
 
-        // Initialize Move class
+        // Initialize Move class, set it to GUI
 
         Move move = new Move(board);
         chessboard.newMove(move);
 
-        // Read state from board
+        // Reference state of the board
 
         Map boardState = board.getBoardState();
-
-        // Handle players
-
-        Player whitePlayer = new Player();
-        Player blackPlayer = new Player();
-        board.currentPlayer = whitePlayer;
 
         // Setup pieces and show board
 

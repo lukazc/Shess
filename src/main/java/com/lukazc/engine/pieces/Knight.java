@@ -10,12 +10,16 @@ import java.util.Set;
 
 public class Knight extends Piece {
 
-    Set<Board.Coordinates> legalMoves = new HashSet<>();
+    private final Set<Board.Coordinates> legalMoves = new HashSet<>();
 
     public Knight(PieceType pieceType, Team pieceTeam, Board.Coordinates piecePosition) {
         super(pieceType, pieceTeam, piecePosition);
     }
 
+    /**
+     * Check Knight's possible jumps.
+     * Collect coordinates of empty tiles and those occupied by enemy pieces.
+     */
     @Override
     public Collection<Board.Coordinates> findLegalMoves(Board board) {
 

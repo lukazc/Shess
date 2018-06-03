@@ -9,7 +9,7 @@ public class Move {
     private Piece piece;
     private Board.Coordinates origin;
     private Board.Coordinates destination;
-    private Board board;
+    private final Board board;
 
     private boolean whiteMoves = true;
 

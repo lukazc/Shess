@@ -16,21 +16,21 @@ public class Chessboard extends JFrame {
 
         // Load black pieces
 
-        private static ImageIcon blackRook = new ImageIcon("./././././assets/BR.gif");
-        private static ImageIcon blackPawn = new ImageIcon("./././././assets/BP.gif");
-        private static ImageIcon blackKing = new ImageIcon("./././././assets/BK.gif");
-        private static ImageIcon blackQueen = new ImageIcon("./././././assets/BQ.gif");
-        private static ImageIcon blackBishop = new ImageIcon("./././././assets/BB.gif");
-        private static ImageIcon blackKnight = new ImageIcon("./././././assets/BN.gif");
+        private static final ImageIcon blackRook = new ImageIcon("./././././assets/BR.gif");
+        private static final ImageIcon blackPawn = new ImageIcon("./././././assets/BP.gif");
+        private static final ImageIcon blackKing = new ImageIcon("./././././assets/BK.gif");
+        private static final ImageIcon blackQueen = new ImageIcon("./././././assets/BQ.gif");
+        private static final ImageIcon blackBishop = new ImageIcon("./././././assets/BB.gif");
+        private static final ImageIcon blackKnight = new ImageIcon("./././././assets/BN.gif");
 
         // Load white pieces
 
-        private static ImageIcon whiteRook = new ImageIcon("./././././assets/WR.gif");
-        private static ImageIcon whitePawn = new ImageIcon("./././././assets/WP.gif");
-        private static ImageIcon whiteKing = new ImageIcon("./././././assets/WK.gif");
-        private static ImageIcon whiteQueen = new ImageIcon("./././././assets/WQ.gif");
-        private static ImageIcon whiteBishop = new ImageIcon("./././././assets/WB.gif");
-        private static ImageIcon whiteKnight = new ImageIcon("./././././assets/WN.gif");
+        private static final ImageIcon whiteRook = new ImageIcon("./././././assets/WR.gif");
+        private static final ImageIcon whitePawn = new ImageIcon("./././././assets/WP.gif");
+        private static final ImageIcon whiteKing = new ImageIcon("./././././assets/WK.gif");
+        private static final ImageIcon whiteQueen = new ImageIcon("./././././assets/WQ.gif");
+        private static final ImageIcon whiteBishop = new ImageIcon("./././././assets/WB.gif");
+        private static final ImageIcon whiteKnight = new ImageIcon("./././././assets/WN.gif");
 
     // Make Container
 
@@ -38,11 +38,11 @@ public class Chessboard extends JFrame {
 
     // Squares
 
-    private static JButton[][] squares = new JButton[8][8];
+    private static final JButton[][] squares = new JButton[8][8];
 
     // Color for squares
 
-    private Color colorGray = Color.GRAY;
+    private final Color colorGray = Color.GRAY;
     private Move move;
 
     /**
