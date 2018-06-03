@@ -9,8 +9,8 @@ import java.util.Map;
 import java.util.Set;
 
 public class Knight extends Piece {
-    Set<Board.Coordinates> legalMoves = new HashSet<>();
 
+    Set<Board.Coordinates> legalMoves = new HashSet<>();
 
     public Knight(PieceType pieceType, Team pieceTeam, Board.Coordinates piecePosition) {
         super(pieceType, pieceTeam, piecePosition);
@@ -18,6 +18,8 @@ public class Knight extends Piece {
 
     @Override
     public Collection<Board.Coordinates> findLegalMoves(Board board) {
+
+        legalMoves.clear();
 
         Board.Coordinates startPosition = this.getPiecePositionTracker();
         int x = startPosition.getX();

@@ -6,6 +6,9 @@ import com.lukazc.engine.player.Team;
 import java.util.*;
 
 public class Bishop extends Piece {
+
+    Set<Board.Coordinates> legalMoves = new HashSet<>();
+
     public Bishop(PieceType pieceType, Team pieceTeam, Board.Coordinates piecePosition) {
         super(pieceType, pieceTeam, piecePosition);
     }
@@ -16,7 +19,8 @@ public class Bishop extends Piece {
      */
     @Override
     public Collection<Board.Coordinates> findLegalMoves(Board board) {
-        Set<Board.Coordinates> legalMoves = new HashSet<>();
+
+        legalMoves.clear();
 
         Board.Coordinates startPosition = this.getPiecePositionTracker();
         int x = startPosition.getX();
