@@ -7,7 +7,6 @@ import java.util.Collection;
 import java.util.Map;
 
 public class Bishop extends Piece {
-
     public Bishop(PieceType pieceType, Team pieceTeam, Board.Coordinates piecePosition) {
         super(pieceType, pieceTeam, piecePosition);
     }
@@ -21,13 +20,14 @@ public class Bishop extends Piece {
 
         clearLegalMoves();
 
+        // Starting coordinates
         Board.Coordinates startPosition = this.getPiecePositionTracker();
         int x = startPosition.getX();
         int y = startPosition.getY();
 
+        // Offset coordinates
         int xMod = 1;
         int yMod = 1;
-
         Map boardState = board.getBoardState();
 
         // South East diagonal
@@ -117,7 +117,7 @@ public class Bishop extends Piece {
         }
 
         return getLegalMoves();
-    }
 
+    }
 
 }

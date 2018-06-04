@@ -18,15 +18,13 @@ public class Move {
         this.board = board;
         whiteTurn = true;
         // Calculate legal moves for every piece.
-        for (Piece piece : board.getBoardState().values()) {
-            piece.calculateLegalMoves(board);
-        }
+        calculateLegalMovesForAllPieces(board);
     }
 
     public void selectTile(Board.Coordinates coordinates) {
         // Select a Piece.
         if (piece == null) {
-            // If it matches current player's color.
+            // Only if it matches current player's color, and it can move.
             selectPiece(coordinates);
         }
 
@@ -36,8 +34,9 @@ public class Move {
                 // Set its coordinates as "origin".
                 setOrigin(coordinates);
             } else {
-                // Second click selects the "destination".
+                // If origin is already set: Second click selects the "destination".
                 if (setDestination(coordinates)) {
+                    // If a legal move destination is selected, finally make the move.
                     board.updateBoardState(this);
                     /* TODO: Pawn Promotion
                      When a pawn reaches the final rank, it's substituted for a Queen. */
@@ -52,18 +51,16 @@ public class Move {
     // Reset all Move information, and switch player.
     private void startNextTurn() {
         // Calculate legal moves for each piece first.
-        for (Piece piece : board.getBoardState().values()) {
-            if (piece != null) piece.calculateLegalMoves(board);
-        }
+        calculateLegalMovesForAllPieces(board);
 
-        restartMove();
+        resetMove();
 
         // Switch player.
         whiteTurn = !whiteTurn;
     }
 
     // Reset all selections, and remove legal moves indicators.
-    private void restartMove() {
+    private void resetMove() {
         piece = null;
         origin = null;
         destination = null;
@@ -88,8 +85,7 @@ public class Move {
 
     }
 
-    private void setOrigin(Board.Coordinates coordinates) {
-        if (piece != null) origin = coordinates;
+    private void setOrigin(Board.Coordinates coordinates) { origin = coordinates;
     }
 
     /**
@@ -102,11 +98,22 @@ public class Move {
             this.destination = destination;
             return true;
         } else {
-            restartMove();
+            resetMove();
             return false;
         }
     }
 
+    private void calculateLegalMovesForAllPieces(Board board) {
+        for (Piece piece : board.getBoardState().values()) {
+            if (piece != null) piece.calculateLegalMoves(board);
+        }
+        // TODO: If in check, filter friendly pieces moves -> (checkLine && assassinPosition)
+
+        // TODO: If a piece is guarding the king, filter its moves -> (guardLine && potential assassin)
+
+        // TODO: mark guarded friendly pieces (on friendly potentialAttacks tiles)
+        // TODO: filter out King legal moves -> (enemy potentialAttacks && guarded pieces)
+    }
 
     public Piece getPiece() {
         return piece;

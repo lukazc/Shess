@@ -121,6 +121,8 @@ public class Chessboard extends JFrame {
         }
     }
 
+    // TODO: Add mouse drag and drop action.
+
     public void drawPiece(Board.Coordinates coordinates, Piece piece){
         final int i = coordinates.getX();
         final int j = coordinates.getY();
