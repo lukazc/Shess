@@ -19,26 +19,17 @@ public class Main {
     public static void main(String[] args) {
 
         /*
-         * PPP
-         * Initialize and set up the board.
-         *
-         * LOOP:
-         *
-         * Check end-game conditions.
          * Calculate all legal moves for Black, including potential future access to the White King.
          * Take away legal moves from White based on Black's legal moves and potential future access to the king.
+         * Check end-game conditions.
          * Let White player move, within the calculated legal moves.
          * White's move updates the board.
          *
-         * Check end-game conditions.
          * Calculate all legal moves for White, including potential future access to the Black King.
          * Take away legal moves from Black based on Whites's legal moves and potential future access to the king.
+         * Check end-game conditions.
          * Let Black player move, within the calculated legal moves.
          * Black's move updates the board.
-         */
-
-        /*
-         * For now, we're just setting up the board and printing out the state to console.
          */
 
         // Load main menu
@@ -47,9 +38,6 @@ public class Main {
 
         splash = new Splash();
 
-        // Load chessboard
-
-        chessboard = new Chessboard();
 
         // Initialize board
 
@@ -58,7 +46,10 @@ public class Main {
         // Initialize Move class, set it to GUI
 
         Move move = new Move(board);
-        chessboard.newMove(move);
+
+        // Load chessboard
+
+        chessboard = new Chessboard(move);
 
         // Reference state of the board
 
@@ -67,11 +58,11 @@ public class Main {
         // Setup pieces and show board
 
         board.setupPieces();
-        printBoard(boardState);
+        drawAllPieces(boardState);
     }
 
 
-    public static void printBoard(Map boardState) {
+    public static void drawAllPieces(Map boardState) {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 Board.Coordinates coordinates = new Board.Coordinates(i, j);

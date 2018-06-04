@@ -13,9 +13,7 @@ public class Pawn extends Piece {
     }
 
     @Override
-    public Collection<Board.Coordinates> findLegalMoves(Board board) {
-
-        // TODO: en passant and promotion
+    public Collection<Board.Coordinates> calculateLegalMoves(Board board) {
 
         Board.Coordinates startPosition = this.getPiecePositionTracker();
         int x = startPosition.getX();
@@ -59,7 +57,7 @@ public class Pawn extends Piece {
         }
 
         // Double push move.
-        // Only if first move and empty tile.
+        // Only if this is its first move and path is clear.
         if (this.isFirstMove()) {
             Board.Coordinates coordinatesFirstTile = new Board.Coordinates(x+push, y);
             Board.Coordinates coordinatesSecondTile = new Board.Coordinates(x+doublePush, y);
@@ -69,7 +67,10 @@ public class Pawn extends Piece {
             if (pieceFirstTile == null && pieceSecondTile == null) addLegalMove(coordinatesSecondTile);
         }
 
-
+        // TODO: En passant
+        // When a pawn advances two squares and ends the turn adjacent to a pawn of the opponent's,
+        // it may be captured by that pawn, as if it had moved only one square forward.
+        // This capture is only legal on the opponent's immediately following move.
 
         return getLegalMoves();
     }

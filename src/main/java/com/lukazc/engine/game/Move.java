@@ -11,17 +11,17 @@ public class Move {
     private Board.Coordinates destination;
     private final Board board;
 
-    private boolean whiteMoves = true;
+    private boolean whiteTurn = true;
 
     public Move(Board board) {
 //        this.currentPlayer = player;
         this.board = board;
     }
 
-    public void select(Board.Coordinates coordinates) {
+    public void selectTile(Board.Coordinates coordinates) {
         // Select a Piece.
         if (piece == null) {
-            // If it matches player's color.
+            // If it matches current player's color.
             selectPiece(coordinates);
         }
 
@@ -34,7 +34,9 @@ public class Move {
                 // Second click selects the "destination".
                 if (setDestination(coordinates)) {
                     board.updateBoardState(this);
-                    piece.registerMove();
+                    /* TODO: Pawn Promotion
+                     When a pawn reaches the final rank, it's substituted for a Queen. */
+                    piece.trackFirstMove();
                     piece.setPiecePositionTracker(coordinates);
                     startNextTurn();
                 }
@@ -44,39 +46,45 @@ public class Move {
 
     // Reset all Move information, and switch player.
     private void startNextTurn() {
-        quitMove();
-        whiteMoves = !whiteMoves;
+        restartMove();
+        whiteTurn = !whiteTurn;
     }
 
-    private void quitMove() {
+    private void restartMove() {
         piece = null;
         origin = null;
         destination = null;
     }
 
     // If the selected Piece is one of the player's pieces, prepare it to move.
+    // TODO: check if there's legal moves before even selecting a piece
     private void selectPiece(Board.Coordinates coordinates) {
         Piece selection = board.getBoardState().get(coordinates);
         if (selection == null) return;
-        if (whiteMoves && selection.getPieceTeam() == Team.WHITE) piece = selection;
-        if (!whiteMoves && selection.getPieceTeam() == Team.BLACK) piece = selection;
+        if (whiteTurn && selection.getPieceTeam() == Team.WHITE) piece = selection;
+        if (!whiteTurn && selection.getPieceTeam() == Team.BLACK) piece = selection;
     }
 
     private void setOrigin(Board.Coordinates coordinates) {
         if (piece != null) origin = coordinates;
     }
 
+    /**
+     * Update board if the chosen move destination is legal, and return "true".
+     * Otherwise, if there's not any legal moves, or the destination is illegal,
+     * reset to the beginning of the move and return "false".
+     * TODO: remove "legal == null" check once it's implemented in selectPiece()
+     */
     private boolean setDestination(Board.Coordinates destination) {
-        // TODO: check if destination lies inside legalMoves.
-        if (piece.findLegalMoves(board) == null) {
-            quitMove();
+        if (piece.calculateLegalMoves(board) == null) {
+            restartMove();
             return false;
         }
-        if (piece.findLegalMoves(board).contains(destination)) {
+        if (piece.calculateLegalMoves(board).contains(destination)) {
             this.destination = destination;
             return true;
         } else {
-            quitMove();
+            restartMove();
             return false;
         }
     }
@@ -86,11 +94,11 @@ public class Move {
         return piece;
     }
 
-    public Board.Coordinates getOrigin() {
+    Board.Coordinates getOrigin() {
         return origin;
     }
 
-    public Board.Coordinates getDestination() {
+    Board.Coordinates getDestination() {
         return destination;
     }
 }

@@ -48,7 +48,9 @@ public class Chessboard extends JFrame {
     /**
      * Constructor
      */
-    public Chessboard() {
+    public Chessboard(Move move) {
+        this.move = move;
+
         // Initialize Layout
 
         contents = getContentPane();
@@ -93,17 +95,9 @@ public class Chessboard extends JFrame {
 
     }
 
-    public void newMove(Move move) {
-        this.move = move;
-    }
-
     private void processClick(int x, int y){
 
-        move.select(new Board.Coordinates(x,y));
-        //squares[row][col].setIcon(null);
-        //squares[x][y].setIcon(rook);
-        //row = x;
-        //col = y;
+        move.selectTile(new Board.Coordinates(x,y));
     }
 
 
@@ -129,48 +123,48 @@ public class Chessboard extends JFrame {
         // For given tile on the board:
         if (piece == null) {
             // If there's no piece, remove icon.
-            Chessboard.squares[i][j].setIcon(null);
+            squares[i][j].setIcon(null);
         } else if (piece.getPieceTeam().equals(Team.BLACK)) {
             // If the piece is Black, draw black icon of its type.
             switch (piece.getPieceType()) {
                 case BISHOP:
-                    Chessboard.squares[i][j].setIcon(Chessboard.blackBishop);
+                    squares[i][j].setIcon(blackBishop);
                     break;
                 case KNIGHT:
-                    Chessboard.squares[i][j].setIcon(Chessboard.blackKnight);
+                    squares[i][j].setIcon(blackKnight);
                     break;
                 case PAWN:
-                    Chessboard.squares[i][j].setIcon(Chessboard.blackPawn);
+                    squares[i][j].setIcon(blackPawn);
                     break;
                 case ROOK:
-                    Chessboard.squares[i][j].setIcon(Chessboard.blackRook);
+                    squares[i][j].setIcon(blackRook);
                     break;
                 case KING:
-                    Chessboard.squares[i][j].setIcon(Chessboard.blackKing);
+                    squares[i][j].setIcon(blackKing);
                     break;
                 case QUEEN:
-                    Chessboard.squares[i][j].setIcon(Chessboard.blackQueen);
+                    squares[i][j].setIcon(blackQueen);
             }
         } else if (piece.getPieceTeam().equals(Team.WHITE)) {
             // If the piece is White, draw white icon of its type.
             switch (piece.getPieceType()) {
                 case BISHOP:
-                    Chessboard.squares[i][j].setIcon(Chessboard.whiteBishop);
+                    squares[i][j].setIcon(whiteBishop);
                     break;
                 case KNIGHT:
-                    Chessboard.squares[i][j].setIcon(Chessboard.whiteKnight);
+                    squares[i][j].setIcon(whiteKnight);
                     break;
                 case PAWN:
-                    Chessboard.squares[i][j].setIcon(Chessboard.whitePawn);
+                    squares[i][j].setIcon(whitePawn);
                     break;
                 case ROOK:
-                    Chessboard.squares[i][j].setIcon(Chessboard.whiteRook);
+                    squares[i][j].setIcon(whiteRook);
                     break;
                 case KING:
-                    Chessboard.squares[i][j].setIcon(Chessboard.whiteKing);
+                    squares[i][j].setIcon(whiteKing);
                     break;
                 case QUEEN:
-                    Chessboard.squares[i][j].setIcon(Chessboard.whiteQueen);
+                    squares[i][j].setIcon(whiteQueen);
             }
         }
     }

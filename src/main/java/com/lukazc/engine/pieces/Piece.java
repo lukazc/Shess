@@ -16,14 +16,12 @@ public abstract class Piece {
 
     private final Set<Coordinates> legalMoves = new HashSet<>();
 
-    Piece(PieceType pieceType, Team pieceTeam, Coordinates piecePositionTracker) {
+    Piece(PieceType pieceType, Team pieceTeam, Coordinates startingPosition) {
         this.pieceType = pieceType;
         this.pieceTeam = pieceTeam;
-        this.piecePositionTracker = piecePositionTracker;
+        this.piecePositionTracker = startingPosition;
         this.isFirstMove = true;
     }
-
-    // PieceType made final to implement in printBoard()
 
     public final PieceType getPieceType() { return pieceType; }
 
@@ -34,24 +32,24 @@ public abstract class Piece {
     }
     public void setPiecePositionTracker(Coordinates newPosition) { this.piecePositionTracker = newPosition; }
 
-    public boolean isFirstMove() {
+    boolean isFirstMove() {
         return isFirstMove;
     }
 
     // Register when the Piece has moved for the first time.
-    public void registerMove() { if (this.isFirstMove) this.isFirstMove = false; }
+    public void trackFirstMove() { if (this.isFirstMove) this.isFirstMove = false; }
 
     /** Returns a list of coordinates of all tiles this piece can reach.*/
-    public abstract Collection<Coordinates> findLegalMoves(Board board);
+    public abstract Collection<Coordinates> calculateLegalMoves(Board board);
 
-    public void clearLegalMoves() {
+    void clearLegalMoves() {
         legalMoves.clear();
     }
-    public void addLegalMove(Coordinates coordinates){
+    void addLegalMove(Coordinates coordinates){
         legalMoves.add(coordinates);
     }
 
-    public Collection<Coordinates> getLegalMoves() {
+    Collection<Coordinates> getLegalMoves() {
         return legalMoves;
     }
 

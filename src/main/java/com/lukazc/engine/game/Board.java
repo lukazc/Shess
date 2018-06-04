@@ -79,7 +79,7 @@ public class Board {
      * @return Set of Coordinates of legal moves for White or Black pieces.
      */
     private Set<Coordinates> findLegalMoves(final Collection<Piece> pieces) {
-        return pieces.stream().flatMap(piece -> piece.findLegalMoves(this).stream())
+        return pieces.stream().flatMap(piece -> piece.calculateLegalMoves(this).stream())
                 .collect(Collectors.toSet());
     }
 
@@ -96,7 +96,7 @@ public class Board {
         // Register the Piece to new coordinates.
         boardState.put(destination, piece);
 
-        Main.printBoard(boardState);
+        Main.drawAllPieces(boardState);
     }
 
     public Map<Coordinates, Piece> getBoardState() {

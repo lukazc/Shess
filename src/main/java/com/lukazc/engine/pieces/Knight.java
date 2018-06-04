@@ -17,7 +17,7 @@ public class Knight extends Piece {
      * Collect coordinates of empty tiles and those occupied by enemy pieces.
      */
     @Override
-    public Collection<Board.Coordinates> findLegalMoves(Board board) {
+    public Collection<Board.Coordinates> calculateLegalMoves(Board board) {
 
         clearLegalMoves();
 

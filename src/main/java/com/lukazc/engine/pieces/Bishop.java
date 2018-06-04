@@ -17,7 +17,7 @@ public class Bishop extends Piece {
      * Stop when a Piece is found. If it's an enemy piece, store its coordinates too.
      */
     @Override
-    public Collection<Board.Coordinates> findLegalMoves(Board board) {
+    public Collection<Board.Coordinates> calculateLegalMoves(Board board) {
 
         clearLegalMoves();
 

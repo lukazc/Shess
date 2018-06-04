@@ -17,7 +17,7 @@ public class King extends Piece {
      * Collect coordinates of empty tiles and those occupied by enemy pieces.
      */
     @Override
-    public Collection<Board.Coordinates> findLegalMoves(Board board) {
+    public Collection<Board.Coordinates> calculateLegalMoves(Board board) {
 
         clearLegalMoves();
 
@@ -27,6 +27,7 @@ public class King extends Piece {
 
         Map boardState = board.getBoardState();
 
+        // Standard move
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
                 if (inBoardBounds(x + i, y + j)) {
@@ -49,6 +50,14 @@ public class King extends Piece {
                 }
             }
         }
+
+        /* TODO: add castling
+         - rook and king have not moved
+         - squares between rook and king are empty
+         - king does not castle from, through, or to check
+         */
+
+
         return getLegalMoves();
     }
 }
