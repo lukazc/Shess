@@ -19,21 +19,21 @@ public class Chessboard extends JFrame {
 
         // Load black pieces
 
-        private static final ImageIcon blackRook = new ImageIcon("./././././assets/BR.gif");
-        private static final ImageIcon blackPawn = new ImageIcon("./././././assets/BP.gif");
-        private static final ImageIcon blackKing = new ImageIcon("./././././assets/BK.gif");
-        private static final ImageIcon blackQueen = new ImageIcon("./././././assets/BQ.gif");
-        private static final ImageIcon blackBishop = new ImageIcon("./././././assets/BB.gif");
-        private static final ImageIcon blackKnight = new ImageIcon("./././././assets/BN.gif");
+        private static final ImageIcon blackRook = new ImageIcon("src/assets/BR.gif");
+        private static final ImageIcon blackPawn = new ImageIcon("src/assets/BP.gif");
+        private static final ImageIcon blackKing = new ImageIcon("src/assets/BK.gif");
+        private static final ImageIcon blackQueen = new ImageIcon("src/assets/BQ.gif");
+        private static final ImageIcon blackBishop = new ImageIcon("src/assets/BB.gif");
+        private static final ImageIcon blackKnight = new ImageIcon("src/assets/BN.gif");
 
         // Load white pieces
 
-        private static final ImageIcon whiteRook = new ImageIcon("./././././assets/WR.gif");
-        private static final ImageIcon whitePawn = new ImageIcon("./././././assets/WP.gif");
-        private static final ImageIcon whiteKing = new ImageIcon("./././././assets/WK.gif");
-        private static final ImageIcon whiteQueen = new ImageIcon("./././././assets/WQ.gif");
-        private static final ImageIcon whiteBishop = new ImageIcon("./././././assets/WB.gif");
-        private static final ImageIcon whiteKnight = new ImageIcon("./././././assets/WN.gif");
+        private static final ImageIcon whiteRook = new ImageIcon("src/assets/WR.gif");
+        private static final ImageIcon whitePawn = new ImageIcon("src/assets/WP.gif");
+        private static final ImageIcon whiteKing = new ImageIcon("src/assets/WK.gif");
+        private static final ImageIcon whiteQueen = new ImageIcon("src/assets/WQ.gif");
+        private static final ImageIcon whiteBishop = new ImageIcon("src/assets/WB.gif");
+        private static final ImageIcon whiteKnight = new ImageIcon("src/assets/WN.gif");
 
     // Make Container
 

@@ -30,7 +30,7 @@ public class MainMenu extends JFrame {
 
         // Insert image to the background
 
-        setContentPane(new JLabel(new ImageIcon("./././././assets/mainMenu.jpg")));
+        setContentPane(new JLabel(new ImageIcon("src/assets/mainMenu.jpg")));
         setLayout(new FlowLayout());
 
 

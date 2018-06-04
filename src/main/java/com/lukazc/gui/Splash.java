@@ -8,7 +8,7 @@ public class Splash extends JFrame{
 
     public Splash(){
 
-        vid = "./././././assets/video.gif";
+        vid = "src/assets/video.gif";
         JPanel panel = new JPanel();
         ImageIcon video = new ImageIcon(vid);
         splash.setSize(500, 500);
