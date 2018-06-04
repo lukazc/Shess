@@ -2,7 +2,6 @@ package com.lukazc.gui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import static com.lukazc.Main.*;
@@ -51,7 +50,7 @@ public class MainMenu extends JFrame {
             // When play button is pressed hide main menu window and show game window
             mainMenu.setVisible(false);
             splash.display();
-            int delay = 4000; //milliseconds
+            int delay = 0; //milliseconds
             ActionListener stopSplash = evt -> {
                 splash.exitSplash();
                 chessboard.setVisible(true);

@@ -39,9 +39,10 @@ public class Main {
         splash = new Splash();
 
 
-        // Initialize board
+        // Initialize board and set up pieces
 
         board = new Board();
+        board.setupPieces();
 
         // Initialize Move class, set it to GUI
 
@@ -55,9 +56,8 @@ public class Main {
 
         Map boardState = board.getBoardState();
 
-        // Setup pieces and show board
+        // Draw pieces
 
-        board.setupPieces();
         drawAllPieces(boardState);
     }
 

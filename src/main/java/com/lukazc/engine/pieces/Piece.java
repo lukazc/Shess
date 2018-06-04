@@ -14,7 +14,7 @@ public abstract class Piece {
     private Coordinates piecePositionTracker;
     private boolean isFirstMove;
 
-    private final Set<Coordinates> legalMoves = new HashSet<>();
+    public final Set<Coordinates> legalMoves = new HashSet<>();
 
     Piece(PieceType pieceType, Team pieceTeam, Coordinates startingPosition) {
         this.pieceType = pieceType;

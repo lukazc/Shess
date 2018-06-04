@@ -3,7 +3,7 @@ import javax.swing.*;
 
 public class Splash extends JFrame{
 
-    private JFrame splash = new JFrame();
+    private final JFrame splash = new JFrame();
     private static String vid;
 
     public Splash(){

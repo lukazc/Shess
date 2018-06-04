@@ -6,9 +6,12 @@ import com.lukazc.engine.pieces.Piece;
 import com.lukazc.engine.player.Team;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Collection;
 
 public class Chessboard extends JFrame {
 
@@ -43,7 +46,9 @@ public class Chessboard extends JFrame {
     // Color for squares
 
     private final Color colorGray = Color.GRAY;
-    private Move move;
+    private final Move move;
+    private final static Border greenBorder = new LineBorder(Color.GREEN, 3);
+
 
     /**
      * Constructor
@@ -168,4 +173,23 @@ public class Chessboard extends JFrame {
             }
         }
     }
+
+    // Draw borders on tiles the selected piece can move to.
+    public static void showLegalMoves(Collection<Board.Coordinates> legalMoves){
+        for (Board.Coordinates tile : legalMoves) {
+            int x = tile.getX();
+            int y = tile.getY();
+            squares[x][y].setBorder(greenBorder);
+        }
+    }
+
+    // Reset all borders to normal.
+    public static void hideLegalMoves(){
+        for (JButton[] row : squares) {
+            for (JButton tile : row) {
+                tile.setBorder(null);
+            }
+        }
+    }
+
 }
