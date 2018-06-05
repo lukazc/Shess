@@ -39,12 +39,12 @@ public class Main {
         splash = new Splash();
 
 
-        // Initialize board and set up pieces
+        // Initialize board object and set up pieces
 
         board = new Board();
         board.setupPieces();
 
-        // Initialize Move class, set it to GUI
+        // Initialize Move object, set it to GUI
 
         Move move = new Move(board);
 
