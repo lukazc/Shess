@@ -19,8 +19,6 @@ public class King extends Piece {
     @Override
     public Collection<Board.Coordinates> calculateLegalMoves(Board board) {
 
-        clearLegalMoves();
-
         Board.Coordinates startPosition = this.getPiecePositionTracker();
         int x = startPosition.getX();
         int y = startPosition.getY();

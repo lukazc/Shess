@@ -14,8 +14,6 @@ public class Queen extends Piece {
     @Override
     public Collection<Board.Coordinates> calculateLegalMoves(Board board) {
 
-        clearLegalMoves();
-
         return null;
     }
 }

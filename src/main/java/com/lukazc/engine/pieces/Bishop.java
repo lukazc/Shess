@@ -18,8 +18,6 @@ public class Bishop extends Piece {
     @Override
     public Collection<Board.Coordinates> calculateLegalMoves(Board board) {
 
-        clearLegalMoves();
-
         // Starting coordinates
         Board.Coordinates startPosition = this.getPiecePositionTracker();
         int x = startPosition.getX();

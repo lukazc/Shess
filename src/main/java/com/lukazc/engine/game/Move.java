@@ -105,7 +105,10 @@ public class Move {
 
     private void calculateLegalMovesForAllPieces(Board board) {
         for (Piece piece : board.getBoardState().values()) {
-            if (piece != null) piece.calculateLegalMoves(board);
+            if (piece != null) {
+                piece.clearLegalMoves();
+                piece.calculateLegalMoves(board);
+            }
         }
         // TODO: If in check, filter friendly pieces moves -> (checkLine && assassinPosition)
 

@@ -21,8 +21,6 @@ public class Pawn extends Piece {
 
         Map boardState = board.getBoardState();
 
-        clearLegalMoves();
-
         // Set direction of movement, according to team.
         int push;
         int doublePush;

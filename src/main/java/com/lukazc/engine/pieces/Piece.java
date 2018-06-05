@@ -42,7 +42,7 @@ public abstract class Piece {
     /** Returns a list of coordinates of all tiles this piece can reach.*/
     public abstract Collection<Coordinates> calculateLegalMoves(Board board);
 
-    void clearLegalMoves() {
+    public void clearLegalMoves() {
         legalMoves.clear();
     }
     void addLegalMove(Coordinates coordinates){
