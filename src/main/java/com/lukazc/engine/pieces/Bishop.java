@@ -4,6 +4,7 @@ import com.lukazc.engine.game.Board;
 import com.lukazc.engine.player.Team;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Map;
 
 public class Bishop extends Piece {
@@ -32,10 +33,10 @@ public class Bishop extends Piece {
 
         while (scanner.sum() > 0) {
 
-             northOffset = scanner.getNorthOffset(x);
-             southOffset = scanner.getSouthOffset(x);
-             westOffset = scanner.getWestOffset(y);
-             eastOffset = scanner.getEastOffset(y);
+            northOffset = scanner.getNorthOffset(x);
+            southOffset = scanner.getSouthOffset(x);
+            westOffset = scanner.getWestOffset(y);
+            eastOffset = scanner.getEastOffset(y);
 
             // NW diagonal
             if (scanner.phaseNW > 0) {
@@ -133,7 +134,7 @@ public class Bishop extends Piece {
         int xMod = 1;
         int yMod = 1;
 
-        void increaseOffset(){
+        void increaseOffset() {
             xMod++;
             yMod++;
         }
@@ -152,6 +153,57 @@ public class Bishop extends Piece {
 
         int getWestOffset(int y) {
             return y - yMod;
+        }
+
+        private Piece potentialKingsGuardNW, potentialKingsGuardNE, potentialKingsGuardSW, potentialKingsGuardSE;
+        private final Collection<Board.Coordinates> potentialCheckLineNW = new HashSet<>();
+        private final Collection<Board.Coordinates> potentialCheckLineNE = new HashSet<>();
+        private final Collection<Board.Coordinates> potentialCheckLineSW = new HashSet<>();
+        private final Collection<Board.Coordinates> potentialCheckLineSE = new HashSet<>();
+
+        private void setPotentialKingsGuard(Piece piece, String direction) {
+            switch (direction) {
+                case "NW":
+                    potentialKingsGuardNW = piece;
+                    break;
+                case "NE":
+                    potentialKingsGuardNE = piece;
+                    break;
+                case "SW":
+                    potentialKingsGuardSW = piece;
+                    break;
+                case "SE":
+                    potentialKingsGuardSE = piece;
+                    break;
+            }
+        }
+
+        private Piece getPotentialKingsGuard(String direction) {
+            switch (direction) {
+                case "NW":
+                    return potentialKingsGuardNW;
+                case "NE":
+                    return potentialKingsGuardNE;
+                case "SW":
+                    return potentialKingsGuardSW;
+                case "SE":
+                    return potentialKingsGuardSE;
+            }
+            return null;
+        }
+
+        Collection<Board.Coordinates> getPotentialCheckLine(String direction) {
+            switch (direction) {
+                case "NW":
+                    return potentialCheckLineNW;
+                case "NE":
+                    return potentialCheckLineNE;
+                case "SW":
+                    return potentialCheckLineSW;
+                case "SE":
+                    return potentialCheckLineSE;
+            }
+            return null;
         }
 
         private void updatePhase(String direction, int phase) {
@@ -175,35 +227,66 @@ public class Bishop extends Piece {
             return phaseNW + phaseNE + phaseSE + phaseSW;
         }
 
+        /* Phase One:
+         * ...
+         */
         void scanPhaseOne(Piece foundPiece, Board.Coordinates coordinates, String direction) {
 
             // If empty tile, add to legalMoves.
             if (foundPiece == null) {
                 addLegalMove(coordinates);
                 // TODO: add to potentialAttackCoordinates
+                // Add to potentialCheckLine for this scan direction.
+                getPotentialCheckLine(direction).add(coordinates);
             } else {
                 // If it's the enemy
                 if (foundPiece.getPieceTeam() != thisPiece().getPieceTeam()) {
                     if (foundPiece.getPieceType() == PieceType.KING) {
+                        // If it's the enemy king.
                         // TODO: put him in check, give a checkLine, give self as assassin and stop
                     } else {
+                        // If it's the enemy soldier.
+                        // Add his position to your legal moves.
                         addLegalMove(coordinates);
-                        // TODO: add to potentialAttackCoordinates
-                        // TODO: mark piece as potentialKingsGuard
+
+                        // Mark that soldier as potentialKingsGuard for current direction of scan.
+                        setPotentialKingsGuard(foundPiece, direction);
+                        // Switch to Phase 2, to see if their King lies beyond.
                         updatePhase(direction, 2);
                     }
                 } else {
                     // If it's friendly piece
-                    // TODO: mark as being guarded
                     // TODO: Add to potentialAttackCoordinates
+
+                    // Stop scanning this direction
                     updatePhase(direction, 0);
                 }
             }
         }
 
-        void scanPhaseTwo(Piece piece, Board.Coordinates coordinates, String direction) {
-            // Placeholder
-            updatePhase(direction, 0);
+        /* Phase Two:
+         * Peek behind the enemy piece to see if it's guarding the enemy King.
+         */
+        void scanPhaseTwo(Piece foundPiece, Board.Coordinates coordinates, String direction) {
+
+            if (foundPiece == null) {
+                // If tile is empty
+                // Add to potentialCheckLine for this scan direction.
+                getPotentialCheckLine(direction).add(coordinates);
+                // Peek further.
+                return;
+            } else {
+                if (foundPiece.getPieceType() == PieceType.KING && foundPiece.getPieceTeam() != thisPiece().getPieceTeam()) {
+                    // If it's the enemy king.
+                    Piece kingsGuard = getPotentialKingsGuard(direction);
+                    // TODO: give kingsGuard its guardedCheckLine and this potentialAssassin's own coordinates, for filtering
+                    // Stop.
+                    updatePhase(direction, 0);
+                } else {
+                    // If it's anything but the enemy king, stop.
+                    updatePhase(direction, 0);
+                }
+            }
         }
 
 
