@@ -235,7 +235,7 @@ public class Bishop extends Piece {
             // If empty tile, add to legalMoves.
             if (foundPiece == null) {
                 addLegalMove(coordinates);
-                // TODO: add to potentialAttackCoordinates
+
                 // Add to potentialCheckLine for this scan direction.
                 getPotentialCheckLine(direction).add(coordinates);
             } else {
@@ -256,7 +256,7 @@ public class Bishop extends Piece {
                     }
                 } else {
                     // If it's friendly piece
-                    // TODO: Add to potentialAttackCoordinates
+                    // TODO: Add to potentialCheckCoordinates
 
                     // Stop scanning this direction
                     updatePhase(direction, 0);

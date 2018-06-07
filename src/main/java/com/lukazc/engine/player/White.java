@@ -1,5 +1,8 @@
 package com.lukazc.engine.player;
 
-public class White {
+public class White extends Player {
 
+    public White() {
+        super();
+    }
 }

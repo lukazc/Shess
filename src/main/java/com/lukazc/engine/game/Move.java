@@ -1,7 +1,7 @@
 package com.lukazc.engine.game;
 
 import com.lukazc.engine.pieces.Piece;
-import com.lukazc.engine.player.Team;
+import com.lukazc.engine.player.*;
 import com.lukazc.gui.Chessboard;
 
 
@@ -12,13 +12,20 @@ public class Move {
     private Board.Coordinates destination;
     private final Board board;
 
-    private boolean whiteTurn;
+    private Player currentPlayer;
+    private White whitePlayer;
+    private Black blackPlayer;
 
     public Move(Board board) {
         this.board = board;
-        whiteTurn = true;
+        whitePlayer = new White();
+        blackPlayer = new Black();
+
+        currentPlayer = whitePlayer;
+
         // Calculate legal moves for every piece.
         calculateLegalMovesForAllPieces(board);
+        filterLegalMovesForCurrentPlayer(board);
     }
 
     public void selectTile(Board.Coordinates coordinates) {
@@ -52,11 +59,16 @@ public class Move {
     private void startNextTurn() {
         // Calculate legal moves for each piece first.
         calculateLegalMovesForAllPieces(board);
+        filterLegalMovesForCurrentPlayer(board);
 
         resetMove();
 
         // Switch player.
-        whiteTurn = !whiteTurn;
+        if (currentPlayer == whitePlayer) {
+            currentPlayer = blackPlayer;
+        } else {
+            currentPlayer = whitePlayer;
+        }
     }
 
     // Reset all selections, and remove legal moves indicators.
@@ -76,8 +88,8 @@ public class Move {
 
         // Select the piece if it's owned by current player.
         // Show tiles it can move to.
-        if (whiteTurn && selection.getPieceTeam() == Team.WHITE
-                || !whiteTurn && selection.getPieceTeam() == Team.BLACK) {
+        if (currentPlayer == whitePlayer && selection.getPieceTeam() == Team.WHITE
+                || currentPlayer == blackPlayer && selection.getPieceTeam() == Team.BLACK) {
             piece = selection;
             Chessboard.showLegalMoves(piece.legalMoves);
         }
@@ -110,6 +122,9 @@ public class Move {
                 piece.calculateLegalMoves(board);
             }
         }
+    }
+
+    private void filterLegalMovesForCurrentPlayer(Board board){
         // TODO: If in check, filter friendly pieces moves -> (checkLine && assassinPosition)
 
         // TODO: If a piece is guarding the king, filter its moves -> (guardLine && potential assassin)
