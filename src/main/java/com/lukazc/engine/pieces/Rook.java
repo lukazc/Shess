@@ -1,6 +1,7 @@
 package com.lukazc.engine.pieces;
 
 import com.lukazc.engine.game.Board;
+import com.lukazc.engine.player.Player;
 import com.lukazc.engine.player.Team;
 
 import java.util.Collection;
@@ -18,7 +19,7 @@ public class Rook extends Piece {
      * Stop when a Piece is found. If it's an enemy piece, store its coordinates too.
      */
     @Override
-    public Collection<Board.Coordinates> calculateLegalMoves(Board board) {
+    public Collection<Board.Coordinates> calculateLegalMoves(Board board, Player currentPlayer) {
 
         Board.Coordinates startPosition = this.getPiecePositionTracker();
         int x = startPosition.getX();

@@ -1,8 +1,14 @@
 package com.lukazc.engine.game;
 
 import com.lukazc.engine.pieces.Piece;
-import com.lukazc.engine.player.*;
+import com.lukazc.engine.player.Black;
+import com.lukazc.engine.player.Player;
+import com.lukazc.engine.player.Team;
+import com.lukazc.engine.player.White;
 import com.lukazc.gui.Chessboard;
+
+import java.util.Collection;
+import java.util.HashSet;
 
 
 public class Move {
@@ -24,8 +30,8 @@ public class Move {
         currentPlayer = whitePlayer;
 
         // Calculate legal moves for every piece.
-        calculateLegalMovesForAllPieces(board);
-        filterLegalMovesForCurrentPlayer(board);
+        calculateLegalMovesForAllPieces(board, currentPlayer);
+        filterLegalMovesForCurrentPlayer(board, currentPlayer);
     }
 
     public void selectTile(Board.Coordinates coordinates) {
@@ -57,9 +63,6 @@ public class Move {
 
     // Reset all Move information, and switch player.
     private void startNextTurn() {
-        // Calculate legal moves for each piece first.
-        calculateLegalMovesForAllPieces(board);
-        filterLegalMovesForCurrentPlayer(board);
 
         resetMove();
 
@@ -69,6 +72,10 @@ public class Move {
         } else {
             currentPlayer = whitePlayer;
         }
+
+        // Calculate legal moves for each piece.
+        calculateLegalMovesForAllPieces(board, currentPlayer);
+        filterLegalMovesForCurrentPlayer(board, currentPlayer);
     }
 
     // Reset all selections, and remove legal moves indicators.
@@ -77,6 +84,9 @@ public class Move {
         origin = null;
         destination = null;
         Chessboard.hideLegalMoves();
+
+        whitePlayer.resetTurnInfo();
+        blackPlayer.resetTurnInfo();
     }
 
     // If the Piece is one of the player's, and it can move, select it.
@@ -84,20 +94,21 @@ public class Move {
         Piece selection = board.getBoardState().get(coordinates);
 
         // If tile is empty, or the chosen piece can't move, do nothing.
-        if (selection == null || selection.legalMoves.isEmpty()) return;
+        if (selection == null || selection.getLegalMoves().isEmpty()) return;
 
         // Select the piece if it's owned by current player.
         // Show tiles it can move to.
         if (currentPlayer == whitePlayer && selection.getPieceTeam() == Team.WHITE
                 || currentPlayer == blackPlayer && selection.getPieceTeam() == Team.BLACK) {
             piece = selection;
-            Chessboard.showLegalMoves(piece.legalMoves);
+            Chessboard.showLegalMoves(piece.getLegalMoves());
         }
 
 
     }
 
-    private void setOrigin(Board.Coordinates coordinates) { origin = coordinates;
+    private void setOrigin(Board.Coordinates coordinates) {
+        origin = coordinates;
     }
 
     /**
@@ -106,7 +117,7 @@ public class Move {
      * reset to the beginning of the move and return "false".
      */
     private boolean setDestination(Board.Coordinates destination) {
-        if (piece.legalMoves.contains(destination)) {
+        if (piece.getLegalMoves().contains(destination)) {
             this.destination = destination;
             return true;
         } else {
@@ -115,17 +126,47 @@ public class Move {
         }
     }
 
-    private void calculateLegalMovesForAllPieces(Board board) {
+    private void calculateLegalMovesForAllPieces(Board board, Player currentPlayer) {
         for (Piece piece : board.getBoardState().values()) {
             if (piece != null) {
                 piece.clearLegalMoves();
-                piece.calculateLegalMoves(board);
+                piece.calculateLegalMoves(board, currentPlayer);
             }
         }
     }
 
-    private void filterLegalMovesForCurrentPlayer(Board board){
-        // TODO: If in check, filter friendly pieces moves -> (checkLine && assassinPosition)
+    private void filterLegalMovesForCurrentPlayer(Board board, Player currentPlayer) {
+        // For each piece
+        for (Piece piece : board.getBoardState().values()) {
+            Collection<Board.Coordinates> illegalMoves = new HashSet<>();
+            // Of current player's
+            if (piece != null && piece.getPieceTeam() == currentPlayer.getTeam()) {
+                // If the current player is in check, only allow him moves which will get him out.
+                // If current player is in check
+                if (currentPlayer.isInCheck()) {
+                    // If the player is in check by two pieces simultaneously, only the king can move to escape.
+                    if (currentPlayer.isInDoubleCheck()) {
+                        // Take away all the moves from his soldiers.
+                        // TODO: Test the double-check filter once the scanner is global.
+                        if (piece.getPieceType() != Piece.PieceType.KING) piece.clearLegalMoves();
+                    }
+                    for (Board.Coordinates legalMove : piece.getLegalMoves()) {
+                        if (piece.getPieceType() == Piece.PieceType.KING) {
+                            // For King, remove legal moves within checkline.
+                            if (currentPlayer.getCheckLine().contains(legalMove)) illegalMoves.add(legalMove);
+                        } else {
+                            // For soldiers, take away all legal moves except for the checkline and assassin position.
+                            if (!currentPlayer.getCheckLine().contains(legalMove)
+                                    && !legalMove.equals(currentPlayer.getAssassinPosition())) {
+                                System.out.println(currentPlayer.getAssassinPosition().getX() + " " + currentPlayer.getAssassinPosition().getY());
+                                illegalMoves.add(legalMove);
+                            }
+                        }
+                    }
+                    if (!illegalMoves.isEmpty()) piece.removeFromLegalMoves(illegalMoves);
+                }
+            }
+        }
 
         // TODO: If a piece is guarding the king, filter its moves -> (guardLine && potential assassin)
 

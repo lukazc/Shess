@@ -18,6 +18,9 @@ public class Player {
     // Set of legal moves for all the player's pieces, for tracking checkmate and stalemate.
     private Collection<Board.Coordinates> allLegalMoves;
 
+
+    Team team;
+
     Player() {
         potentialChecks = new HashSet<>();
 
@@ -27,6 +30,9 @@ public class Player {
         assassinPosition = null;
 
         allLegalMoves = new HashSet<>();
+    }
+    public Team getTeam() {
+        return team;
     }
 
     public Collection<Board.Coordinates> getPotentialChecks() {
@@ -41,24 +47,24 @@ public class Player {
         return inCheck;
     }
 
-    public void setInCheck(boolean inCheck) {
-        this.inCheck = inCheck;
+    public void setInCheck() {
+        this.inCheck = true;
     }
 
     public boolean isInDoubleCheck() {
         return inDoubleCheck;
     }
 
-    public void setInDoubleCheck(boolean inDoubleCheck) {
-        this.inDoubleCheck = inDoubleCheck;
+    public void setInDoubleCheck() {
+        this.inDoubleCheck = true;
     }
 
     public Collection<Board.Coordinates> getCheckLine() {
         return checkLine;
     }
 
-    public void setCheckLine(Collection<Board.Coordinates> checkLine) {
-        this.checkLine = checkLine;
+    public void addCheckLine(Collection<Board.Coordinates> checkLine) {
+        this.checkLine.addAll(checkLine);
     }
 
     public Board.Coordinates getAssassinPosition() {

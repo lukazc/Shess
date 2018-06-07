@@ -78,10 +78,10 @@ public class Board {
      * @param pieces All Black or White pieces.
      * @return Set of Coordinates of legal moves for White or Black pieces.
      */
-    private Set<Coordinates> findLegalMoves(final Collection<Piece> pieces) {
-        return pieces.stream().flatMap(piece -> piece.calculateLegalMoves(this).stream())
-                .collect(Collectors.toSet());
-    }
+//    private Set<Coordinates> findLegalMoves(final Collection<Piece> pieces) {
+//        return pieces.stream().flatMap(piece -> piece.calculateLegalMoves(this).stream())
+//                .collect(Collectors.toSet());
+//    }
 
     /**
      * Remove Piece from origin, and set the Piece to new destination coordinates.

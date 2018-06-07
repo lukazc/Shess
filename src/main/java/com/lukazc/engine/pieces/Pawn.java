@@ -1,6 +1,7 @@
 package com.lukazc.engine.pieces;
 
 import com.lukazc.engine.game.Board;
+import com.lukazc.engine.player.Player;
 import com.lukazc.engine.player.Team;
 
 import java.util.Collection;
@@ -13,7 +14,7 @@ public class Pawn extends Piece {
     }
 
     @Override
-    public Collection<Board.Coordinates> calculateLegalMoves(Board board) {
+    public Collection<Board.Coordinates> calculateLegalMoves(Board board, Player currentPlayer) {
 
         Board.Coordinates startPosition = this.getPiecePositionTracker();
         int x = startPosition.getX();

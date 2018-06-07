@@ -1,6 +1,7 @@
 package com.lukazc.engine.pieces;
 
 import com.lukazc.engine.game.Board;
+import com.lukazc.engine.player.Player;
 import com.lukazc.engine.player.Team;
 
 import java.util.Collection;
@@ -18,9 +19,9 @@ public class Bishop extends Piece {
      * Stop when a Piece is found. If it's an enemy piece, store its coordinates too.
      */
     @Override
-    public Collection<Board.Coordinates> calculateLegalMoves(Board board) {
+    public Collection<Board.Coordinates> calculateLegalMoves(Board board, Player currentPlayer) {
 
-        LegalMovesScannerDiagonal scanner = new LegalMovesScannerDiagonal();
+        LegalMovesScannerDiagonal scanner = new LegalMovesScannerDiagonal(currentPlayer);
 
         // Starting coordinates
         Board.Coordinates startPosition = this.getPiecePositionTracker();
@@ -128,6 +129,13 @@ public class Bishop extends Piece {
 
 
     private class LegalMovesScannerDiagonal {
+
+        LegalMovesScannerDiagonal(Player currentPlayer) {
+            this.currentPlayer = currentPlayer;
+        }
+
+        private final Player currentPlayer;
+
         int phaseNW = 1, phaseNE = 1, phaseSW = 1, phaseSE = 1;
 
         // Coordinates offset
@@ -243,7 +251,19 @@ public class Bishop extends Piece {
                 if (foundPiece.getPieceTeam() != thisPiece().getPieceTeam()) {
                     if (foundPiece.getPieceType() == PieceType.KING) {
                         // If it's the enemy king.
-                        // TODO: put him in check, give a checkLine, give self as assassin and stop
+                        // put him in check, give a checkLine, give self as assassin and stop
+
+                        // Check can only happen to currentPlayer, as it's impossible to be in check for 2 turns.
+                        // Set player in check.
+                        if (currentPlayer.isInCheck()) {
+                            currentPlayer.setInDoubleCheck();
+                        } else {
+                            currentPlayer.setInCheck();
+                        }
+                        // Pass him the line between the assassin and king.
+                        currentPlayer.addCheckLine(getPotentialCheckLine(direction));
+                        // Pass him this piece's coordinates as the assassin.
+                        currentPlayer.setAssassinPosition(thisPiece().getPiecePositionTracker());
                     } else {
                         // If it's the enemy soldier.
                         // Add his position to your legal moves.
@@ -255,8 +275,13 @@ public class Bishop extends Piece {
                         updatePhase(direction, 2);
                     }
                 } else {
-                    // If it's friendly piece
-                    // TODO: Add to potentialCheckCoordinates
+                    // If it's friendly piece.
+
+                    // If also it's the enemy of the current player:
+                    // Add to potentialCheckCoordinates
+                    if (foundPiece.getPieceTeam() != currentPlayer.getTeam()) {
+                        currentPlayer.addPotentialCheck(coordinates);
+                    }
 
                     // Stop scanning this direction
                     updatePhase(direction, 0);

@@ -2,6 +2,7 @@ package com.lukazc.engine.pieces;
 
 import com.lukazc.engine.game.Board;
 import com.lukazc.engine.game.Board.Coordinates;
+import com.lukazc.engine.player.Player;
 import com.lukazc.engine.player.Team;
 
 import java.util.Collection;
@@ -14,7 +15,7 @@ public abstract class Piece {
     private Coordinates piecePositionTracker;
     private boolean isFirstMove;
 
-    public final Set<Coordinates> legalMoves = new HashSet<>();
+    private final Set<Coordinates> legalMoves = new HashSet<>();
 
     Piece(PieceType pieceType, Team pieceTeam, Coordinates startingPosition) {
         this.pieceType = pieceType;
@@ -40,7 +41,7 @@ public abstract class Piece {
     public void trackFirstMove() { if (this.isFirstMove) this.isFirstMove = false; }
 
     /** Returns a list of coordinates of all tiles this piece can reach.*/
-    public abstract Collection<Coordinates> calculateLegalMoves(Board board);
+    public abstract Collection<Coordinates> calculateLegalMoves(Board board, Player player);
 
     public void clearLegalMoves() {
         legalMoves.clear();
@@ -49,8 +50,14 @@ public abstract class Piece {
         legalMoves.add(coordinates);
     }
 
-    Collection<Coordinates> getLegalMoves() {
+    public Collection<Coordinates> getLegalMoves() {
         return legalMoves;
+    }
+
+    public void removeFromLegalMoves (Collection<Coordinates> illegalMoves) {
+        for (Coordinates coordinates : illegalMoves) {
+            legalMoves.remove(coordinates);
+        }
     }
 
     /**

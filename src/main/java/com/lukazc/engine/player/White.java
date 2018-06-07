@@ -4,5 +4,6 @@ public class White extends Player {
 
     public White() {
         super();
+        this.team = Team.WHITE;
     }
 }
