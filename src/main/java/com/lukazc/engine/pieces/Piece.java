@@ -17,12 +17,51 @@ public abstract class Piece {
 
     private final Set<Coordinates> legalMoves = new HashSet<>();
 
+
+    private boolean isKingsGuard;
+
+
+    private Collection<Coordinates> guardedCheckLine = new HashSet<>();
+    private Coordinates potentialAssassin;
+
+
     Piece(PieceType pieceType, Team pieceTeam, Coordinates startingPosition) {
         this.pieceType = pieceType;
         this.pieceTeam = pieceTeam;
         this.piecePositionTracker = startingPosition;
         this.isFirstMove = true;
     }
+
+    public Coordinates getPotentialAssassin() {
+        return potentialAssassin;
+    }
+
+    void setPotentialAssassin(Coordinates potentialAssassin) {
+        this.potentialAssassin = potentialAssassin;
+    }
+
+    public boolean isKingsGuard(){
+        return this.isKingsGuard;
+    }
+
+    void setKingsGuard() {
+        isKingsGuard = true;
+    }
+
+    public Collection<Coordinates> getGuardedCheckLine() {
+        return guardedCheckLine;
+    }
+
+    void setGuardedCheckLine(Collection<Coordinates> guardedCheckLine) {
+        this.guardedCheckLine = guardedCheckLine;
+    }
+
+    public void resetKingsGuard() {
+        isKingsGuard = false;
+        this.guardedCheckLine.clear();
+        potentialAssassin = null;
+    }
+
 
     public final PieceType getPieceType() { return pieceType; }
 

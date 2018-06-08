@@ -74,6 +74,7 @@ public class Move {
         }
 
         // Calculate legal moves for each piece.
+        resetKingsGuardForAllPieces();
         calculateLegalMovesForAllPieces(board, currentPlayer);
         filterLegalMovesForCurrentPlayer(board, currentPlayer);
     }
@@ -135,6 +136,12 @@ public class Move {
         }
     }
 
+    private void resetKingsGuardForAllPieces(){
+        for (Piece piece: board.getBoardState().values()) {
+            if (piece != null) piece.resetKingsGuard();
+        }
+    }
+
     private void filterLegalMovesForCurrentPlayer(Board board, Player currentPlayer) {
         // For each piece
         for (Piece piece : board.getBoardState().values()) {
@@ -158,20 +165,45 @@ public class Move {
                             // For soldiers, take away all legal moves except for the checkline and assassin position.
                             if (!currentPlayer.getCheckLine().contains(legalMove)
                                     && !legalMove.equals(currentPlayer.getAssassinPosition())) {
-                                System.out.println(currentPlayer.getAssassinPosition().getX() + " " + currentPlayer.getAssassinPosition().getY());
                                 illegalMoves.add(legalMove);
                             }
                         }
                     }
-                    if (!illegalMoves.isEmpty()) piece.removeFromLegalMoves(illegalMoves);
                 }
+                // The friendly King can't move to where the enemy can attack.
+                if (piece.getPieceType() == Piece.PieceType.KING) {
+                    for (Piece otherPiece : board.getBoardState().values()) {
+                        // For each enemy piece, except pawns
+                        if (otherPiece != null && otherPiece.getPieceTeam() != piece.getPieceTeam()) {
+                            if (otherPiece.getPieceType() != Piece.PieceType.PAWN) {
+                                // King can't move where they could
+                                piece.removeFromLegalMoves(otherPiece.getLegalMoves());
+                            }
+                            // King can't take pieces guarded by others and where pawns can attack.
+                            // TODO: Test the potentialChecks collecting and filtering once the scanner is global.
+                            piece.removeFromLegalMoves(currentPlayer.getPotentialChecks());
+                        }
+                    }
+                }
+
+                // If a piece is guarding the king, filter its moves -> allow only the assassin position, and the line between assassin and King.
+                if (piece.isKingsGuard()) {
+                    // Put the assassin's coordinates, and the path from assassin to King, into a collection kingsGuardLegals.
+                    Collection<Board.Coordinates> guardedCheckLine = piece.getGuardedCheckLine();
+                    Board.Coordinates assassinPosition = piece.getPotentialAssassin();
+
+                    Collection<Board.Coordinates> kingsGuardLegals = new HashSet<>(guardedCheckLine);
+                    kingsGuardLegals.add(assassinPosition);
+
+                    // Eliminate guard's moves which aren't included in that collection.
+                    piece.getLegalMoves().retainAll(kingsGuardLegals);
+                }
+
+                // Finally, filter out all the found illegal moves.
+                if (!illegalMoves.isEmpty()) piece.removeFromLegalMoves(illegalMoves);
             }
         }
 
-        // TODO: If a piece is guarding the king, filter its moves -> (guardLine && potential assassin)
-
-        // TODO: mark guarded friendly pieces (on friendly potentialAttacks tiles)
-        // TODO: filter out King legal moves -> (enemy potentialAttacks && guarded pieces)
     }
 
     public Piece getPiece() {

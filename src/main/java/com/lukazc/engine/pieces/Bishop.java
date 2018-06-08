@@ -21,7 +21,6 @@ public class Bishop extends Piece {
     @Override
     public Collection<Board.Coordinates> calculateLegalMoves(Board board, Player currentPlayer) {
 
-        LegalMovesScannerDiagonal scanner = new LegalMovesScannerDiagonal(currentPlayer);
 
         // Starting coordinates
         Board.Coordinates startPosition = this.getPiecePositionTracker();
@@ -29,6 +28,8 @@ public class Bishop extends Piece {
         int y = startPosition.getY();
 
         Map boardState = board.getBoardState();
+
+        LegalMovesScannerDiagonal scanner = new LegalMovesScannerDiagonal(currentPlayer, startPosition);
 
         int northOffset, southOffset, westOffset, eastOffset;
 
@@ -130,10 +131,12 @@ public class Bishop extends Piece {
 
     private class LegalMovesScannerDiagonal {
 
-        LegalMovesScannerDiagonal(Player currentPlayer) {
+        LegalMovesScannerDiagonal(Player currentPlayer, Board.Coordinates startingCoordinates) {
             this.currentPlayer = currentPlayer;
+            this.scanningPieceCoordinates = startingCoordinates;
         }
 
+        private final Board.Coordinates scanningPieceCoordinates;
         private final Player currentPlayer;
 
         int phaseNW = 1, phaseNE = 1, phaseSW = 1, phaseSE = 1;
@@ -250,6 +253,7 @@ public class Bishop extends Piece {
                 // If it's the enemy
                 if (foundPiece.getPieceTeam() != thisPiece().getPieceTeam()) {
                     if (foundPiece.getPieceType() == PieceType.KING) {
+                        // TODO: scan one tile further to restrict the king from backing off and staying in check. Currently it "works" because phase is not updated in this step.
                         // If it's the enemy king.
                         // put him in check, give a checkLine, give self as assassin and stop
 
@@ -303,8 +307,11 @@ public class Bishop extends Piece {
             } else {
                 if (foundPiece.getPieceType() == PieceType.KING && foundPiece.getPieceTeam() != thisPiece().getPieceTeam()) {
                     // If it's the enemy king.
+                    // Set kingsGuard. Give kingsGuard its guardedCheckLine and this potentialAssassin's own coordinates, for filtering.
                     Piece kingsGuard = getPotentialKingsGuard(direction);
-                    // TODO: give kingsGuard its guardedCheckLine and this potentialAssassin's own coordinates, for filtering
+                    kingsGuard.setKingsGuard();
+                    kingsGuard.setGuardedCheckLine(getPotentialCheckLine(direction));
+                    kingsGuard.setPotentialAssassin(scanningPieceCoordinates);
                     // Stop.
                     updatePhase(direction, 0);
                 } else {
